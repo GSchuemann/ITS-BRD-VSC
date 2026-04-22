@@ -29,11 +29,11 @@ main
     BL initITSboard             ; needed by the board to setup
     nop                         ; no operation
     LDR     R6, =GPIO_D_SET     ; get address of the GPIO data set register
-    MOV     R1, #0x03           ; load mask 0b0010
+    MOV     R1, #0x03           ; load mask 0b0011
 
     ; Set LED
 
-    STRB    R1, [R6]    ; switch on LED D8 and D9
+    STRB    R1, [R6]    ;switch on LED D8 and D9
     b .
     
     ALIGN
