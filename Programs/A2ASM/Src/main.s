@@ -18,6 +18,7 @@ ConstByteA  EQU 0xaffe
     AREA DATA, DATA, align=2    
 VariableA   DCW 0xbeef
 VariableB   DCW 0x1234
+VariableC   DCW 0x0000
 
 ;* We need minimal memory setup of InRootSection placed in Code Section 
     AREA  |.text|, CODE, READONLY, ALIGN = 3    
@@ -31,15 +32,19 @@ main
     lsl     R2, #8          ; Anw04
     orr     R2, R3          ; Anw05
     strh    R2,[R0]         ; Anw06 
-    
+
 ;* const in var
     mov     R5,#ConstByteA  ; Anw07
-    strh    R5,[R0]         ; Anw08
+    lsr     R6,R5,#8
+    ldr     R4,=VariableC
+    strh    R5,[R4,#1]         ; Ein bisschen Hacky, es steht richtig im Speicher, allerdings können andere Daten überschrieben werden
+    strb    R6,[R4]         ; Anw08
+
     
-;* Change value from x1234 to x4321
+;* Change value from x1234 to x4312
     ldr     R1,=VariableB   ; Anw09
     ldrh    R6,[R1]         ; Anw0A
-    mov     R7, #0x30ED     ; Anw0B
+    mov     R7, #0x30DE     ; Anw0B
     add     R6, R6, R7      ; Anw0C
     strh    R6,[R1]         ; Anw0D
     b .                     ; Anw0E
