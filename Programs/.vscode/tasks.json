@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/A1ASM",
+                "cwd": "${workspaceFolder}/A2ASM",
                 "shell": {
                     "executable": "/bin/bash",
                     "args": [
@@ -29,7 +29,7 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/A1ASM",
+                "cwd": "${workspaceFolder}/A2ASM",
                 "shell": {
                     "executable": "/bin/bash",
                     "args": [
@@ -51,7 +51,7 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/A1ASM",
+                "cwd": "${workspaceFolder}/A2ASM",
                 "shell": {
                     "executable": "/bin/bash",
                     "args": [
@@ -89,7 +89,7 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/A1ASM",
+                "cwd": "${workspaceFolder}/A2ASM",
                 "shell": {
                     "executable": "/bin/bash",
                     "args": [
