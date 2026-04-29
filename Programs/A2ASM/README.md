@@ -10,5 +10,5 @@ Zunächst wird in AW01 mit ldr die Adresse in Register R0 geladen. Der Wert in d
 In AW02 wird ein Byte von den 2 Byte in R2 geladen (DCB), hier handelt es sich um den Wert 0xef, weil die Byte Ordner bei ARM Little Endian ist.
 In AW03 wird wieder ein Byte geladen in R3, allerdings diesmal mit dem Offset 1, der Wert ist also diesmal 0xbe
 In AW04 wird der Wert den R2 halten kann um 1 Byte (8bits) vergrößert und mit 0 befüllt
-In AW05 wird das 2te Byte mit R1 gefüllt, der Wert ist jetzt 0xefbe, die Reihenfolge der Bits hat sich also im Vergleich zum Anfangswert verändert.
+In AW05 wird das 2te Byte mit R1 gefüllt, der Wert ist jetzt 0xefbe, die Reihenfolge der Bytes hat sich also im Vergleich zum Anfangswert verändert.
 In AW06 wird der geänderte Wert zurück in den Speicher geschrieben.

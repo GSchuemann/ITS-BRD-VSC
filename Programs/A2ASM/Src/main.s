@@ -36,9 +36,8 @@ main
 ;* const in var
     mov     R5,#ConstByteA  ; Anw07
     lsr     R6,R5,#8
-    ldr     R4,=VariableC
-    strh    R5,[R4,#1]         ; Ein bisschen Hacky, es steht richtig im Speicher, allerdings können andere Daten überschrieben werden
-    strb    R6,[R4]         ; Anw08
+    strh    R5,[R0,#5]         ; Ein bisschen Hacky, es steht richtig im Speicher, allerdings können andere Daten überschrieben werden
+    strb    R6,[R0,#4]         ; Anw08
 
     
 ;* Change value from x1234 to x4312
