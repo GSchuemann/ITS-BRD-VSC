@@ -4,16 +4,20 @@ import (
 	"fmt"
 )
 
-var primArr = make([]byte, 125)
+var primArr = make([]byte, 126)
 var curPos int64 = 2
 var curBytePos = 0
+var primes = make([]int16, 0) //Initialiersrung eines Dynamischen Arrays im Speicher
 
 func main() {
 	sieb()
 	// for i:=2;i<1000;i++ {
 	// TODO Ausgabe vom Array, bzw. dessen Validierung
 	// }
-	fmt.Println(primArr)
+	abspeichern()
+	for i := 0; i < len(primes); i++ {
+		fmt.Printf("%v ist eine Primzahl!\n", primes[i])
+	}
 
 }
 func sieb() {
@@ -23,20 +27,30 @@ func sieb() {
 	//  bitToCheck := fmt.Sprintf("%08b\n", curByte)[arrPos]
 	// fmt.Println(fmt.Sprintf("%08b ,%v\n", curByte, arrPos))
 	if bitToCheck == 0 {
-		fmt.Printf("%v ist eine Primzahl \n", curPos)
-		for i := (curPos * curPos); i < 1000; i += curPos {
+		// fmt.Printf("%v ist eine Primzahl \n", curPos)
+		for i := (curPos * curPos); i < int64(len(primArr)*8); i += curPos {
 			b := int(i >> 3)
 			bit := (i + 8) & 0x07 //&(AND) 0x07 ist % 8
 			mask := getMask(int(bit))
 			primArr[b] = primArr[b] | byte(mask)
 		}
-	} else {
-		fmt.Printf("%v ist keine Primzahl\n", curPos)
 	}
 	curPos += 1
-	if curPos < 1000 {
+	if curPos < int64(len(primArr)*8) {
 		sieb()
 	}
+}
+func abspeichern() {
+	for i := 2; i < len(primArr)*8; i++ {
+		arrPos := i % 8
+		curByte := primArr[i>>3]
+		curBit := (curByte & (0x80 >> arrPos))
+
+		if curBit == 0 {
+			primes = append(primes, int16(i))
+		}
+	}
+
 }
 func getMask(bit int) int {
 	return 0x80 >> bit
