@@ -13,9 +13,8 @@
   <key attr.name="description" attr.type="string" for="edge" id="d9"/>
   <key for="edge" id="d10" yfiles.type="edgegraphics"/>
   <graph edgedefault="directed" id="G">
-    <data key="d0"/>
+    <data key="d0" xml:space="preserve"/>
     <node id="n0">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.start1">
           <y:Geometry height="40.0" width="105.0" x="524.5" y="-524.5833333333333"/>
@@ -26,7 +25,6 @@
       </data>
     </node>
     <node id="n1">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="40.0" width="210.0" x="472.0" y="-443.58333333333326"/>
@@ -37,7 +35,6 @@
       </data>
     </node>
     <node id="n2">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="40.0" width="283.0" x="435.5" y="-387.9166666666666"/>
@@ -48,7 +45,6 @@
       </data>
     </node>
     <node id="n3">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="40.0" width="390.0" x="382.0" y="-317.9166666666666"/>
@@ -59,7 +55,6 @@
       </data>
     </node>
     <node id="n4">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.predefinedProcess">
           <y:Geometry height="40.0" width="144.0" x="505.0" y="-224.58333333333326"/>
@@ -70,7 +65,6 @@
       </data>
     </node>
     <node id="n5">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="66.0" width="640.0" x="257.0" y="-149.58333333333326"/>
@@ -82,7 +76,6 @@ enthält also immer die Position des Bit (0-7)  in das  gelesen werden soll<y:La
       </data>
     </node>
     <node id="n6">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="66.0" width="640.0" x="257.0" y="-48.58333333333326"/>
@@ -94,7 +87,6 @@ enthält also immer die Position des Bytes in das aus dem die Bits gelesen werde
       </data>
     </node>
     <node id="n7">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="66.0" width="640.0" x="257.0" y="44.75000000000006"/>
@@ -106,7 +98,6 @@ enthält also immer die Position des Bytes in das aus dem die Bits gelesen werde
       </data>
     </node>
     <node id="n8">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
           <y:Geometry height="76.25" width="640.0" x="257.0" y="142.47916666666669"/>
@@ -120,7 +111,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </node>
     <node id="n9">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.decision">
           <y:Geometry height="40.0" width="166.25" x="493.875" y="277.4791666666667"/>
@@ -131,7 +121,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </node>
     <node id="n10">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimit">
           <y:Geometry height="40.0" width="233.75" x="460.125" y="385.3958333333335"/>
@@ -142,10 +131,9 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </node>
     <node id="n11">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
-          <y:Geometry height="66.0" width="640.0" x="257.0" y="475.83333333333326"/>
+          <y:Geometry height="66.0" width="640.0" x="245.75" y="561.6666666666665"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="501.35565185546875" x="69.32217407226562" xml:space="preserve" y="14.655885696411133">Variable b initaliseren, diese ist definiert als i / 8 enthält also das aktuelle Byte in den das
@@ -154,10 +142,9 @@ geschrieben soll, dass die Zahl keine Primzahl ist<y:LabelModel><y:SmartNodeLabe
       </data>
     </node>
     <node id="n12">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
-          <y:Geometry height="66.0" width="640.0" x="245.75" y="571.8333333333333"/>
+          <y:Geometry height="66.0" width="640.0" x="257.0" y="455.3958333333335"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="504.3316650390625" x="67.83416748046875" xml:space="preserve" y="14.655885696411133">Variable bit initaliseren, diese ist definiert als i  mod 8, enthält also wieder die aktuelle Bit
@@ -166,7 +153,6 @@ Position in die geschrieben werden soll<y:LabelModel><y:SmartNodeLabelModel dist
       </data>
     </node>
     <node id="n13">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="66.0" width="640.0" x="245.75" y="657.6666666666665"/>
@@ -178,7 +164,6 @@ das bit im byte korrekt auf gesetzt wird. Hier wird 0x80 logisch nach rechts ges
       </data>
     </node>
     <node id="n14">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.data">
           <y:Geometry height="40.0" width="651.25" x="245.75" y="763.590905333343"/>
@@ -189,7 +174,6 @@ das bit im byte korrekt auf gesetzt wird. Hier wird 0x80 logisch nach rechts ges
       </data>
     </node>
     <node id="n15">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
           <y:Geometry height="40.0" width="651.25" x="245.75" y="833.590905333343"/>
@@ -200,18 +184,16 @@ das bit im byte korrekt auf gesetzt wird. Hier wird 0x80 logisch nach rechts ges
       </data>
     </node>
     <node id="n16">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.decision">
           <y:Geometry height="40.0" width="233.75" x="450.45000000000005" y="903.590905333343"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="150.18507385253906" x="41.78246307373041" xml:space="preserve" y="9.827942848205566">i kleiner PrimArr länge * 8<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="115.93679809570312" x="58.90660095214844" xml:space="preserve" y="9.827942848205566">i kleiner gleich 1000<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n17">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimitEnd">
           <y:Geometry height="40.0" width="322.51250000000005" x="406.06875" y="1001.0125666666665"/>
@@ -229,18 +211,16 @@ das bit im byte korrekt auf gesetzt wird. Hier wird 0x80 logisch nach rechts ges
       </data>
     </node>
     <node id="n18">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.decision">
           <y:Geometry height="40.0" width="291.5625" x="421.54375000000005" y="1108.8693106666858"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="185.4893341064453" x="53.036582946777344" xml:space="preserve" y="9.827942848205566">curPos kleiner PrimArr länge * 8<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="115.93679809570312" x="87.81285095214844" xml:space="preserve" y="9.827942848205566">i kleiner gleich 1000<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n19">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
           <y:Geometry height="40.0" width="651.25" x="241.70000000000005" y="1054.9409386666762"/>
@@ -251,7 +231,6 @@ das bit im byte korrekt auf gesetzt wird. Hier wird 0x80 logisch nach rechts ges
       </data>
     </node>
     <node id="n20">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.predefinedProcess">
           <y:Geometry height="40.0" width="144.0" x="495.32500000000005" y="1178.8693106666858"/>
@@ -262,7 +241,6 @@ das bit im byte korrekt auf gesetzt wird. Hier wird 0x80 logisch nach rechts ges
       </data>
     </node>
     <node id="n21">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimit">
           <y:Geometry height="40.0" width="80.0" x="527.3250000000002" y="1242.3999999999996"/>
@@ -273,7 +251,6 @@ das bit im byte korrekt auf gesetzt wird. Hier wird 0x80 logisch nach rechts ges
       </data>
     </node>
     <node id="n22">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="66.0" width="640.0" x="247.32500000000016" y="1312.3999999999996"/>
@@ -285,7 +262,6 @@ enthält also immer die Position des Bit (0-7)  in das  gelesen werden soll<y:La
       </data>
     </node>
     <node id="n23">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="66.0" width="640.0" x="247.32500000000016" y="1398.1874999999993"/>
@@ -297,7 +273,6 @@ enthält also immer die Position des Bytes in das aus dem die Bits gelesen werde
       </data>
     </node>
     <node id="n24">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.internalStorage">
           <y:Geometry height="66.0" width="640.0" x="241.70000000000005" y="1483.974999999999"/>
@@ -309,7 +284,6 @@ enthält also immer die Position des Bytes in das aus dem die Bits gelesen werde
       </data>
     </node>
     <node id="n25">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
           <y:Geometry height="76.25" width="640.0" x="241.70000000000005" y="1569.7624999999987"/>
@@ -323,7 +297,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </node>
     <node id="n26">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.decision">
           <y:Geometry height="40.0" width="180.15625" x="471.62187500000005" y="1683.0958999999996"/>
@@ -334,7 +307,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </node>
     <node id="n27">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.directData">
           <y:Geometry height="40.0" width="346.88125000000014" x="381.69999999999993" y="1753.0958999999996"/>
@@ -345,7 +317,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </node>
     <node id="n28">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
           <y:Geometry height="40.0" width="346.88125000000014" x="387.94999999999993" y="1814.4999999999993"/>
@@ -356,18 +327,16 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </node>
     <node id="n29">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.decision">
           <y:Geometry height="76.25" width="233.75" x="444.515625" y="1884.4999999999993"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="164.7411651611328" x="34.504417419433594" xml:space="preserve" y="27.952942848205566">i kleiner primArr länge mal 8<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="115.93679809570312" x="58.90660095214844" xml:space="preserve" y="27.952942848205566">i kleiner gleich 1000<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <edge id="e0" source="n0" target="n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -378,7 +347,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e1" source="n1" target="n2">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -389,7 +357,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e2" source="n2" target="n3">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -400,7 +367,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e3" source="n3" target="n4">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -411,7 +377,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e4" source="n4" target="n5">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -422,7 +387,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e5" source="n5" target="n6">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -433,7 +397,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e6" source="n6" target="n7">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -444,7 +407,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e7" source="n7" target="n8">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -455,7 +417,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e8" source="n8" target="n9">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -466,7 +427,6 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
       </data>
     </edge>
     <edge id="e9" source="n9" target="n10">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -479,34 +439,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e10" source="n12" target="n13">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e11" source="n16" target="n10">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="76.8855000000002" y="923.590905333343"/>
-            <y:Point x="76.8855000000002" y="411.63756666666677"/>
-          </y:Path>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="34.26420593261719" x="-214.9629300842284" xml:space="preserve" y="-40.17203316610767">Wahr<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e12" source="n16" target="n17">
-      <data key="d9"/>
+    <edge id="e10" source="n16" target="n17">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -517,8 +450,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e13" source="n17" target="n19">
-      <data key="d9"/>
+    <edge id="e11" source="n17" target="n19">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -528,8 +460,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e14" source="n19" target="n18">
-      <data key="d9"/>
+    <edge id="e12" source="n19" target="n18">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -539,8 +470,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e15" source="n18" target="n4">
-      <data key="d9"/>
+    <edge id="e13" source="n18" target="n4">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -554,8 +484,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e16" source="n18" target="n20">
-      <data key="d9"/>
+    <edge id="e14" source="n18" target="n20">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -566,8 +495,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e17" source="n26" target="n28">
-      <data key="d9"/>
+    <edge id="e15" source="n26" target="n28">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -581,8 +509,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e18" source="n26" target="n27">
-      <data key="d9"/>
+    <edge id="e16" source="n26" target="n27">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -595,8 +522,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e19" source="n27" target="n28">
-      <data key="d9"/>
+    <edge id="e17" source="n27" target="n28">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -606,8 +532,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e20" source="n28" target="n29">
-      <data key="d9"/>
+    <edge id="e18" source="n28" target="n29">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -617,23 +542,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e21" source="n29" target="n21">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="88.90096875000074" y="1922.6249999999993"/>
-            <y:Point x="97.65096875000074" y="1279.4999999999998"/>
-          </y:Path>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="34.26420593261719" x="-205.9981278381344" xml:space="preserve" y="-40.172057151795116">Wahr<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e22" source="n21" target="n22">
-      <data key="d9"/>
+    <edge id="e19" source="n21" target="n22">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -643,8 +552,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e23" source="n22" target="n23">
-      <data key="d9"/>
+    <edge id="e20" source="n22" target="n23">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -654,8 +562,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e24" source="n23" target="n24">
-      <data key="d9"/>
+    <edge id="e21" source="n23" target="n24">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -665,8 +572,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e25" source="n24" target="n25">
-      <data key="d9"/>
+    <edge id="e22" source="n24" target="n25">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -676,8 +582,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e26" source="n25" target="n26">
-      <data key="d9"/>
+    <edge id="e23" source="n25" target="n26">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -687,8 +592,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e27" source="n10" target="n11">
-      <data key="d9"/>
+    <edge id="e24" source="n13" target="n14">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -698,8 +602,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e28" source="n11" target="n12">
-      <data key="d9"/>
+    <edge id="e25" source="n14" target="n15">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -709,34 +612,89 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e29" source="n13" target="n14">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e30" source="n14" target="n15">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e31" source="n15" target="n16">
-      <data key="d9"/>
+    <edge id="e26" source="n15" target="n16">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
             <y:Point x="571.375" y="901.0624999999993"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e27" source="n10" target="n12">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e28" source="n12" target="n11">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e29" source="n11" target="n13">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e30" source="n9" target="n19">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="-30.345649805447465" y="297.4791666666667"/>
+            <y:Point x="-30.345649805447465" y="1046.1031284046694"/>
+            <y:Point x="-30.345649805447465" y="1074.9409386666762"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="58.300384521484375" x="-308.3138542606339" xml:space="preserve" y="-40.17204697926837">ist nicht 0<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e31" source="n16" target="n12">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="113.18866926070041" y="923.590905333343"/>
+            <y:Point x="113.18866926070041" y="488.3958333333335"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="34.26420593261719" x="-196.81583153786266" xml:space="preserve" y="-40.17203316610767">Wahr<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e32" source="n29" target="n22">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="42.084021789883195" y="1922.6249999999993"/>
+            <y:Point x="42.084021789883195" y="1357.7708015564199"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>

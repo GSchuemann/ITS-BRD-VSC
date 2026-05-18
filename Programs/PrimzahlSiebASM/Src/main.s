@@ -12,7 +12,9 @@
 ;Label loop_01 und R2 mit R4 AND 0x07 belegen
 ;R3 mit R4 logischer Shift Right 3 belegen
 ;R2 mit 0x80 logischer Shift R2 belegen
-;In R0, Offset R4 den Wert aus R2 reinschreiben
+;R5 mit R0 Offset R3 belegen 
+;R2 mit R5 OR R2 belegen
+;In R0, Offset R3 den Wert aus R2 reinschreiben
 ;R4 mit R1 addieren
 ;Gucken ob R4 kleiner gleich 1000 ist
 ;Wenn R4 kleinergleich 1000, branch
