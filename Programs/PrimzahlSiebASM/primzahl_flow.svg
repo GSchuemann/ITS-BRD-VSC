@@ -229,7 +229,7 @@
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,107,540)" stroke-linecap="butt">
       <rect fill="none" x="245.75" width="640" height="66" y="561.6667" clip-path="url(#clipPath2)"/>
       <path fill="none" d="M255.75 561.6667 L255.75 627.6667 M245.75 571.6667 L885.75 571.6667 M255.75 561.6667 Z" clip-path="url(#clipPath2)"/>
-      <text x="317.0722" xml:space="preserve" y="591.1506" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Variable b initaliseren, diese ist definiert als i / 8 enthält also das aktuelle Byte in den das</text>
+      <text x="295.2981" xml:space="preserve" y="591.1506" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Variable curByte neu belegen, diese ist definiert als i / 8 enthält also das aktuelle Byte in den das</text>
       <text x="428.889" xml:space="preserve" y="607.4948" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">geschrieben soll, dass die Zahl keine Primzahl ist</text>
     </g>
     <g fill="url(#linearGradient13)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,107,540)" stroke="url(#linearGradient13)">
@@ -238,7 +238,7 @@
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,107,540)" stroke-linecap="butt">
       <rect fill="none" x="257" width="640" height="66" y="455.3958" clip-path="url(#clipPath2)"/>
       <path fill="none" d="M267 455.3958 L267 521.3958 M257 465.3958 L897 465.3958 M267 455.3958 Z" clip-path="url(#clipPath2)"/>
-      <text x="326.8342" xml:space="preserve" y="484.8798" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Variable bit initaliseren, diese ist definiert als i  mod 8, enthält also wieder die aktuelle Bit</text>
+      <text x="313.6701" xml:space="preserve" y="484.8798" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Variable curBit neu belegen, diese ist definiert als i  mod 8, enthält also wieder die aktuelle Bit</text>
       <text x="466.8992" xml:space="preserve" y="501.2239" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Position in die geschrieben werden soll</text>
     </g>
     <g fill="url(#linearGradient14)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,107,540)" stroke="url(#linearGradient14)">

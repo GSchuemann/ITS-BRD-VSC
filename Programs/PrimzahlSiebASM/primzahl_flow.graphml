@@ -136,7 +136,7 @@ nach Rechts logisch geshiftet werden.<y:LabelModel><y:SmartNodeLabelModel distan
           <y:Geometry height="66.0" width="640.0" x="245.75" y="561.6666666666665"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="501.35565185546875" x="69.32217407226562" xml:space="preserve" y="14.655885696411133">Variable b initaliseren, diese ist definiert als i / 8 enthält also das aktuelle Byte in den das
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="544.9038696289062" x="47.548065185546875" xml:space="preserve" y="14.655885696411133">Variable curByte neu belegen, diese ist definiert als i / 8 enthält also das aktuelle Byte in den das
 geschrieben soll, dass die Zahl keine Primzahl ist<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
@@ -147,7 +147,7 @@ geschrieben soll, dass die Zahl keine Primzahl ist<y:LabelModel><y:SmartNodeLabe
           <y:Geometry height="66.0" width="640.0" x="257.0" y="455.3958333333335"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="504.3316650390625" x="67.83416748046875" xml:space="preserve" y="14.655885696411133">Variable bit initaliseren, diese ist definiert als i  mod 8, enthält also wieder die aktuelle Bit
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="530.6598510742188" x="54.670074462890625" xml:space="preserve" y="14.655885696411133">Variable curBit neu belegen, diese ist definiert als i  mod 8, enthält also wieder die aktuelle Bit
 Position in die geschrieben werden soll<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
