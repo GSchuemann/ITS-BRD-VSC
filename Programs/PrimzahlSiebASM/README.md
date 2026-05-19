@@ -77,3 +77,7 @@ func abspeichern() {
 	}
 }
 ```
+
+Memory Layout:
+
+<img src="./memLayout.jpg" alt="Memory Layout für das Programm, 126 Bytes belegt. Dann ein HW für die Anzahl Primzahlen, danach Primzahlen.">
