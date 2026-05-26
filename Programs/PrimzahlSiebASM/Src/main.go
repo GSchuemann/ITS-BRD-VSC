@@ -16,6 +16,7 @@ func main() {
 	}
 
 }
+
 func sieb() {
 	curBit := curPos % 8
 	curByte := primArr[int(curPos>>3)]         //lsr 3 ist div 8

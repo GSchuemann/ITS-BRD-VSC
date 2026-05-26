@@ -14,35 +14,37 @@ Primes             DCW 0
     EXPORT main
     EXTERN initITSboard
 main            PROC
-       bl    initITSboard                 ; HW Initialisieren
+              bl    initITSboard                 ; HW Initialisieren
 
-       ldr R0,=PrimArr ;in R0 Add primArr laden
-       mov R6,#0x80
-       mov R1,#2 ;R1 mit der Zahl 2 initialisieren
-sieb   and R2,R1,#0x07 ;Label Sieb Funktion und R2 initialisieren mit R1 AND 0x07, entspricht R1 Mod 8
-       lsr R3,R1,#3 ;R3 mit R1 logischer Shift Right 3 belegen, entspricht R1 div 8
-       ldrb R3,[R0,R3]
-       lsr R2,R6,R2
-       ands R3,R3,R2 ;R3 mit R3 ANDS Logischer Shift Right mit R2, wichtig ist das s bei AND, damit die Zero Flag gesetzt wird!
-       bne SiebAfterLoop ;Wenn Zero Flag gesetzt, weiter machen, sonst branch to SiebAfterLoop
+              ldr R0,=PrimArr ;R0 = Start Adresse des Primzahlen Sieb Arrays
+              mov R6,#0x80 ;R6 Register mit der Maske die geshiftet werden soll
+              mov R1,#2 ;R1 ist der Index 2-1000, für die Primzahlen
+fn_sieb       and R2,R1,#0x07 ;Label Sieb Funktion und R2 (currentBit) initialisieren mit Index Mod 8
+              lsr R3,R1,#3 ;R3 (currentByte) mit Index div 8 belegen
+              ldrb R3,[R0,R3] ;Laden des Bytes aus dem  in R3
+              lsr R2,R6,R2 ;Bit maske für das zu Prüfende Bit erstellen
+if_01         ands R3,R3,R2 ;Geladenes Byte mit der Bit Maske abgleichen
+then_01       bne enddo_01 ;Wenn das gesuchte Bit 0 ist, den For Loop überpspringen
+endfi_01
+for_01        mul R4,R1,R1 ;R4 ist der Index im Loop (nachfolgend l_Index), initialisieren mit Index * Index
 
+until_01      cmp R4,#1000 ;Prüfung ob l_Index kleiner gleich 1000 ist
+              bgt enddo_01 ;Wenn l_Index nicht kleiner gleich Tausend ist, Loop beenden, sonst weiter
 
-        mul R4,R1,R1 ;R4 mit R1 * R1 belegen
+do_01         and R2,R4,#0x07 ;l_currentBit mit l_Index mod 8 belegen
+              lsr R3,R4,#3 ;l_currentByte mit l_Index div 8 belegen
+              lsr R2,R6,R2 ;Die Maske für das currentBit vorbereiten
+              ldrb R5,[R0,R3] ;Das Byte aus dem Primzahlsieb in R5 laden
+              orr R2,R5,R2 ;Das Byte mit der erstellten Maske mit OR Kombinieren, damit die neue 1 gesetzt wird
+              strb R2,[R0,R3] ;Das Byte wieder zurück in das Primzahlsieb schreiben.
 
-loop_01  AND R2,R4,#0x07 ;Label loop_01 und R2 mit R4 AND 0x07 belegen
-        lsr R3,R4,#3 ;R3mit R4 logischer Shift Right 3 belegen
-        lsr R2,R6,R2 ;R2 mit 0x80 logischer Shift R2 belegen
-        ldr R5,[R0,R3] ;R5 mit R0 Offset R3 belegen 
-;        ldr R5,[R5]
-        orr R2,R5,R2 ;R5 mit R5 OR R2 belegen
-        strb R2,[R0,R3] ;In R0, Offset R3 den Wert aus R2 reinschreiben
-        add R4,R4,R1 ;R4 mit R1 addieren
-        cmp R4,#1000;Gucken ob R4 kleiner gleich 31 ist
-        bls loop_01 ;Wenn R4 kleinergleich 31, branch
+step_01       add R4,R4,R1 ;l_Index um Index erhöhen
+              b until_01
 
-SiebAfterLoop add R1,R1,#1 ;Label SiebAfterLoop und R1 um  erhöhen
-        cmp R1,#31 ;Gucken ob R1 gleich 1 ist, wenn ja branch loop_01 sonst weiter
-        bls sieb ;Wenn R1 kleiner gleich 31 branch to Sieb sonst weiter (abspeichern)
+enddo_01      add R1,R1,#1 ;Index um 1 erhöhen
+              cmp R1,#31 ;Prüfen ob Index kleiner gleich 31, denn 32*32 ist größer als 1000
+              bls fn_sieb ;Wenn Index kleiner gleich 31 Zur Anfangs Sieb Funktion springen (Recursive) sonst weiter (abspeichern)
+end_fn_sieb
 
 abspeichern mov R1,#2;Label abspeichern R1 auf 2 setzen
         ldr R5,=Primes;R0 auf die Addresse von Primes setzen
