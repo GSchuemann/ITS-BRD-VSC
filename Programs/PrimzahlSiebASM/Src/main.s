@@ -29,7 +29,7 @@ endfi_01
 for_01        mul R4,R1,R1 ;R4 ist der Index im Loop (nachfolgend l_Index), initialisieren mit Index * Index
 
 until_01      cmp R4,#1000 ;Prüfung ob l_Index kleiner gleich 1000 ist
-              bgt enddo_01 ;Wenn l_Index nicht kleiner gleich Tausend ist, Loop beenden, sonst weiter
+              bhi enddo_01 ;Wenn l_Index nicht kleiner gleich Tausend ist, Loop beenden, sonst weiter
 
 do_01         and R2,R4,#0x07 ;l_currentBit mit l_Index mod 8 belegen
               lsr R3,R4,#3 ;l_currentByte mit l_Index div 8 belegen
@@ -66,7 +66,7 @@ Increment add R1,R1,#1 ;R1 um 1 erhöhen
         strh R1,[R0]
 ;In R1 den Wert von R0 speichern. Dadurch haben wir die Anzahl der Primzahlen als erstes Halbwort. 
 ;Und wir kennen die länge, welche die Primezahlen im Speicher belegen (Anzahl * 2)
-    b .                     ; Anw0E
+     b .                     ; Anw0E
     
     ALIGN
     END
