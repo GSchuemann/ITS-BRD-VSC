@@ -24,8 +24,9 @@ fn_sieb       and R2,R1,#0x07 ;Label Sieb Funktion und R2 (currentBit) initialis
               ldrb R3,[R0,R3] ;Laden des Bytes aus dem  in R3
               lsr R2,R6,R2 ;Bit maske für das zu Prüfende Bit erstellen
 if_01         ands R3,R3,R2 ;Geladenes Byte mit der Bit Maske abgleichen
-then_01       bne enddo_01 ;Wenn das gesuchte Bit 0 ist, den For Loop überpspringen
-endfi_01
+              bne endif_01 ;Wenn das gesuchte Bit 0 ist, den For Loop überpspringen
+                     
+then_01
 for_01        mul R4,R1,R1 ;R4 ist der Index im Loop (nachfolgend l_Index), initialisieren mit Index * Index
 
 until_01      cmp R4,#1000 ;Prüfung ob l_Index kleiner gleich 1000 ist
@@ -40,30 +41,38 @@ do_01         and R2,R4,#0x07 ;l_currentBit mit l_Index mod 8 belegen
 
 step_01       add R4,R4,R1 ;l_Index um Index erhöhen
               b until_01
-
+endif_01
 enddo_01      add R1,R1,#1 ;Index um 1 erhöhen
               cmp R1,#31 ;Prüfen ob Index kleiner gleich 31, denn 32*32 ist größer als 1000
               bls fn_sieb ;Wenn Index kleiner gleich 31 Zur Anfangs Sieb Funktion springen (Recursive) sonst weiter (abspeichern)
 end_fn_sieb
 
-abspeichern mov R1,#2;Label abspeichern R1 auf 2 setzen
-        ldr R5,=Primes;R0 auf die Addresse von Primes setzen
+abspeichern   ldr R5,=Primes;R0 auf die Addresse von Primes setzen
+              
 
-SpeicherLoop and r2,r1,#0x07 ;Label SpeicherLoop R2 belegen mit R1 AND 0x07, entspricht R1 Mod 8
-        lsr R3,R1,#3 ;R3 belegen mit R1 LSR 3, entspricht R1 div 8
-        ldrb R3,[R0,R3]
-        lsr R2,R6,R2
-        ands R3,R3,R2 ;R3 mit 0x80 ANDS R2 belegen, wichtig wieder s, damit Zero Flag gesetzt wird
-        bne Increment ;Wenn Zero Flag gesetzt brach to Increment, sonst weiter 
-        strh R1,[R5,#2]! ;R1 speichern in R0 Offset 2 Pre-Increment
+for_02        mov R1,#2;Counter i mit Wert 2 initialisieren
 
-Increment add R1,R1,#1 ;R1 um 1 erhöhen
-        cmp R1,#1000;Prüfen ob R1 kleiner gleich 1000 ist
-        bls SpeicherLoop;Wenn kleiner gleich 1000 branch SpeicherLoop, sonst weiter 
-        ldr R0,=Primes ;R1 auf die Addresse von Primes setzen
-        SUB R1,R5,R0 ;R0 auf R0 - R1 setzen
-        LSR R1,R1,#1 ;R0 um 2 nach Rechts shiften (logisch)          
-        strh R1,[R0]
+until_02      cmp R1,#1000;Prüfen ob i kleiner gleich 1000 ist
+              bhi enddo_02;Wenn größer 1000 Loop beenden, sonst weiter 
+
+              and r2,r1,#0x07 ;curBit mit i Mod 8 belegen
+              lsr R3,R1,#3 ;curByte mit i Div 8 belegen
+              ldrb R3,[R0,R3] ; Byte aus dem Speicher laden
+              lsr R2,R6,R2 ; Bit aus dem Byte extrahieren
+
+if_02         ands R3,R3,R2 ;Prüfen ob das Bit 1 ist  
+              bne step_02 ;Wenn 1 weiter, sonst weiter in den Loop 
+
+then_02       strh R1,[R5,#2]! ;R1 speichern in R0 Offset 2 Pre-Increment
+
+step_02       add R1,R1,#1 ;R1 um 1 erhöhen
+              b until_02
+endif_02
+enddo_02      ldr R0,=Primes ;R1 auf die Addresse von Primes setzen
+              SUB R1,R5,R0 ;R0 auf R0 - R1 setzen
+              LSR R1,R1,#1 ;R0 um 2 nach Rechts shiften (logisch)          
+              strh R1,[R0]
+end_abspeichern
 ;In R1 den Wert von R0 speichern. Dadurch haben wir die Anzahl der Primzahlen als erstes Halbwort. 
 ;Und wir kennen die länge, welche die Primezahlen im Speicher belegen (Anzahl * 2)
      b .                     ; Anw0E
