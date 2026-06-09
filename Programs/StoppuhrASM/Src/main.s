@@ -133,6 +133,9 @@ s5Pressed       PROC
 				PUSH {LR}
 				MOV R0,#5
 				BL waitForRelease
+				LDR R0,=GPIO_D_CLR
+			    MOV R2,#0x03
+				STR R2,[R0]
 				MOV R0,#2
 				bl changeState
 				POP {LR}
@@ -142,6 +145,9 @@ s6Pressed       PROC
 				PUSH {LR}
 				MOV R0,#6
 				BL waitForRelease
+				LDR R0,=GPIO_D_SET
+			    MOV R2,#2
+				STR R2,[R0]
 				MOV R0,#8
 				bl changeState
 				POP {LR}
@@ -152,6 +158,12 @@ s7Pressed       PROC
 				PUSH {LR}
 				MOV R0,#7
 				BL waitForRelease
+				LDR R0,=GPIO_D_SET
+			    MOV R2,#1
+				STR R2,[R0]
+				LDR R0,=GPIO_D_CLR
+			    MOV R2,#0x02
+				STR R2,[R0]
 				MOV R0,#4
 				BL changeState
 				POP {LR}
