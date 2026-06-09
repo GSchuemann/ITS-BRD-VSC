@@ -46,7 +46,7 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
 
 DEFAULT_BRIGHTNESS	DCW     800
 MY_TEXT				DCB		"Hold down different buttons from S0 to S7 and watch D8 to D15.", 0
-MY_INIT			    DCB		"Current Step: init.", 0
+MY_TIME			    DCB		"00:00:00", 0
 MY_RUNNING			DCB		"Current Step: Runn.", 0
 MY_STOP				DCB		"Current Step: Stop.", 0
 
@@ -79,8 +79,13 @@ main	PROC
 		bl  	lcdSetFont
 
 		; Ihre Initialisierung
+		MOV R0,#10
+		MOV R1,#6
+		MOV R8,#0
+		BL lcdGotoXY
+		LDR R0,=MY_TIME
+		BL  	lcdPrintS
 		MOV R0, #2
-		BL changeState
 		MOV R11,#0x01 ;LED PrüfMaske
 
 superloop
@@ -108,12 +113,14 @@ init    PROC
         BAL endif_01
 		ENDP
 running    PROC
-		PUSH{R2,R3}
+		PUSH {R0,R2,R3}
+		BAL updateTime
 		TST    R2, R11 ,LSL #6
 		BLEQ s6Pressed
 		POP{R2,R3}
 		TST  R2, R11 ,LSL #5
 		BLEQ s5Pressed
+		POP {R0}
         BAL endif_01
 		ENDP
 stop    PROC
@@ -137,7 +144,6 @@ s5Pressed       PROC
 			    MOV R2,#0x03
 				STR R2,[R0]
 				MOV R0,#2
-				bl changeState
 				POP {LR}
 				BX LR
 				ENDP
@@ -149,7 +155,6 @@ s6Pressed       PROC
 			    MOV R2,#2
 				STR R2,[R0]
 				MOV R0,#8
-				bl changeState
 				POP {LR}
 				BX LR
 				ENDP
@@ -158,6 +163,7 @@ s7Pressed       PROC
 				PUSH {LR}
 				MOV R0,#7
 				BL waitForRelease
+				BL setTimer
 				LDR R0,=GPIO_D_SET
 			    MOV R2,#1
 				STR R2,[R0]
@@ -165,7 +171,6 @@ s7Pressed       PROC
 			    MOV R2,#0x02
 				STR R2,[R0]
 				MOV R0,#4
-				BL changeState
 				POP {LR}
 				BX LR
 				ENDP
@@ -178,29 +183,63 @@ waitForRelease 	PROC
 				BEQ waitForRelease
 				BX LR
 			   	ENDP
-changeState PROC ; TAKES R0 and switches State depending on that, R0 = 2 Init, R0 = 4, Running, R0 8 Stop
-            PUSH {LR,R0}
-            CMP R0,#2
-			LDREQ R0,=MY_INIT
-            CMP R0,#4
-			LDREQ R0,=MY_RUNNING
-			CMP R0,#8
-			LDREQ R0,=MY_STOP
-			BL setText
-			POP {LR,R0}
-            BX LR
-            ENDP
 
-setText     PROC
-            PUSH {LR,R0}
-			MOV R0,#5
-			MOV R1,#6
-			BL lcdGotoXY
-			POP {R0}
-			BL  	lcdPrintS
-			POP {LR}
-			BX LR
-            ENDP
+setTimer      PROC 
+				ldr 	R5,=TIM2_ERG   			; Set pre scaler such that 1 timer tick represents 10 us
+				BX LR
+				ENDP
+updateTime		PROC
+				LDR     R5,=TIMER
+				LDR     R1,[R5]
+				SUB 	R1,R8
+				;MOV     R1,R8
+				PUSH {LR,R0}
+				BL updateSeconds
+				POP {LR,R0}
+				BX LR
+				ENDP
+updateSeconds 	PROC			
+				PUSH {LR,R6}
+				LDR R6,=100000
+				UDIV R3,R1,R6
+				MOV R0,R3
+				PUSH {R0}
+				MOV R0,#17
+				MOV R1,#6
+				BL lcdGotoXY
+				POP {R0}
+				PUSH {R0}
+				BL modulo
+				ADD R0,#0x30
+				BL lcdPrintC
+				MOV R0,#16
+				MOV R1,#6
+				BL lcdGotoXY
+				POP {R0}
+				BL zehnerStelle
+				BL lcdPrintC
+				POP {LR,R6}
+				BX LR
+				ENDP
+updateeMinutes	PROC 
+				ENDP
+
+modulo          PROC
+				MOV R2,#10
+				UDIV R1,R0,R2
+				MUL R1,R2
+				SUB R0,R0,R1
+				BX LR
+				ENDP
+zehnerStelle	PROC
+				PUSH {LR}
+				MOV R2,#10
+				UDIV R0,R2
+				BL modulo
+				ADD R0,#0x30
+				POP {LR}
+				BX LR
+				ENDP
 
 		; switch LEDs off (button s<i> not pressed : LED D<î+8> switched off (for 0 <= i <= 7)
 		;LDR		R1,=GPIO_D_CLR
