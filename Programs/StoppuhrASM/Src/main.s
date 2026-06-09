@@ -79,76 +79,117 @@ main	PROC
 		bl  	lcdSetFont
 
 		; Ihre Initialisierung
-		MOV R10,#0x02 ; States: 2 ist Init, 4 ist Running und 8 ist Stop
+		MOV R0, #2
+		BL changeState
 		MOV R11,#0x01 ;LED PrüfMaske
 
-		; Simple test code
-		;LDR 	R0,=MY_TEXT
-		;BL  	lcdPrintS
 superloop
 		; read buttons
-		LDR		R0,=GPIO_F_PIN
-		ldrh	R6,[R0]
-if_01   CMP R10,#2
+		LDR		R2,=GPIO_F_PIN
+		ldrh	R2,[R2]
+if_01   CMP R0,#2
 
-then_01 BLEQ init
-        MOV R5,#6
+then_01 BEQ init
 
-else_if_02 CMP R10,#4
+else_if_02 CMP R0,#4
 
-then_02 BLEQ running
+then_02 BEQ running
 
-else_if_03 CMP R10,#8
+else_if_03 CMP R0,#8
 
-then_03 BLEQ stop
-
-endif_01
-        BAL superloop
-
+then_03 BEQ stop
 		;and		R0,#0xFF   ; set bit 31 to 8 of R0 to 0 ; bit 7 to 0 do not change
 		; bit i for R0 is 1 <=> button S<i> not pressed (for 0 <= i <= 7)
 		; bit i for R0 is 0 <=> button S<i>     pressed (for 0 <= i <= 7)
 		
 init    PROC
-		PUSH {LR}
-		MOV R0,#5
-		MOV R1,#6
-		BL lcdGotoXY
-		LDR R0,=MY_INIT
-		BL lcdPrintS
-		POP {LR}
-		TST    R6, R11 ,LSL #7
-		LSLEQ  R10, R10, #1	
-        BX LR
+		TST    R2, R11 ,LSL #7
+		BLEQ s7Pressed	
+        BAL endif_01
 		ENDP
 running    PROC
-		PUSH {LR}
-		MOV R0,#5
-		MOV R1,#6
-		BL lcdGotoXY
-		LDR 	R0,=MY_RUNNING
-		BL lcdPrintS
-		POP {LR}
-		TST    R6, R11 ,LSL #6
-		LSLEQ  R10, R10, #1	
-		TST    R6, R11 ,LSL #5
-		LSREQ  R10, R10, #1	
-        BX LR
+		PUSH{R2,R3}
+		TST    R2, R11 ,LSL #6
+		BLEQ s6Pressed
+		POP{R2,R3}
+		TST  R2, R11 ,LSL #5
+		BLEQ s5Pressed
+        BAL endif_01
 		ENDP
 stop    PROC
-        PUSH{LR}
-		MOV R0,#5
-		MOV R1,#6
-		BL lcdGotoXY
-		LDR 	R0,=MY_STOP
-		BL  	lcdPrintS
-		POP {LR}
-		TST    R6, R11 ,LSL #5
-		MOVEQ  R10, #2	
-		TST    R6, R11 ,LSL #7
-		LSREQ  R10, R10, #1	
-        BX LR
+		PUSH{R2,R3}
+		TST    R2, R11 ,LSL #5
+		BLEQ s5Pressed
+		POP{R2,R3}	
+		TST  R2, R11 ,LSL #7
+		BLEQ s7Pressed	
+        BAL endif_01
 		ENDP
+
+endif_01
+        BAL superloop
+
+s5Pressed       PROC
+				PUSH {LR}
+				MOV R0,#5
+				BL waitForRelease
+				MOV R0,#2
+				bl changeState
+				POP {LR}
+				BX LR
+				ENDP
+s6Pressed       PROC 
+				PUSH {LR}
+				MOV R0,#6
+				BL waitForRelease
+				MOV R0,#8
+				bl changeState
+				POP {LR}
+				BX LR
+				ENDP
+
+s7Pressed       PROC 
+				PUSH {LR}
+				MOV R0,#7
+				BL waitForRelease
+				MOV R0,#4
+				BL changeState
+				POP {LR}
+				BX LR
+				ENDP
+
+waitForRelease 	PROC
+				LDR		R2,=GPIO_F_PIN
+				ldrh	R2,[R2]
+				LSL R10,R11,R0
+				TST  R2, R10
+				BEQ waitForRelease
+				BX LR
+			   	ENDP
+changeState PROC ; TAKES R0 and switches State depending on that, R0 = 2 Init, R0 = 4, Running, R0 8 Stop
+            PUSH {LR,R0}
+            CMP R0,#2
+			LDREQ R0,=MY_INIT
+            CMP R0,#4
+			LDREQ R0,=MY_RUNNING
+			CMP R0,#8
+			LDREQ R0,=MY_STOP
+			BL setText
+			POP {LR,R0}
+            BX LR
+            ENDP
+
+setText     PROC
+            PUSH {LR,R0}
+			MOV R0,#5
+			MOV R1,#6
+			BL lcdGotoXY
+			POP {R0}
+			BL  	lcdPrintS
+			POP {LR}
+			BX LR
+            ENDP
+
 		; switch LEDs off (button s<i> not pressed : LED D<î+8> switched off (for 0 <= i <= 7)
 		;LDR		R1,=GPIO_D_CLR
 		;str		R0,[R1]
