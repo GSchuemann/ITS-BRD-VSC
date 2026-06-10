@@ -47,8 +47,10 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
 DEFAULT_BRIGHTNESS	DCW     800
 MY_TEXT				DCB		"Hold down different buttons from S0 to S7 and watch D8 to D15.", 0
 MY_TIME			    DCB		"00:00:00", 0
-MY_RUNNING			DCB		"Current Step: Runn.", 0
-MY_STOP				DCB		"Current Step: Stop.", 0
+SECOND_DIGIT		DCB     "0"
+SECOND_TEN		    DCB		"0"
+MINUTE_DIGIT		DCB		"0"
+MINUTE_TEN			DCB		"0"		
 
 ;********************************************
 ; Code section, aligned on 8-byte boundery
@@ -201,30 +203,77 @@ updateTime		PROC
 updateSeconds 	PROC			
 				PUSH {LR,R6}
 				LDR R6,=100000
-				UDIV R3,R1,R6
-				MOV R0,R3
+				UDIV R0,R1,R6
 				PUSH {R0}
+				BL updateMinutes
+				POP {R0}
+				BL modulo60
+				PUSH{R0}
 				MOV R0,#17
 				MOV R1,#6
 				BL lcdGotoXY
 				POP {R0}
-				PUSH {R0}
-				BL modulo
+				PUSH {R0}	
+				BL modulo10
 				ADD R0,#0x30
-				BL lcdPrintC
+				LDR R1,=SECOND_DIGIT
+				LDRB R2,[R1]
+				STRB R0,[R1]
+				CMP R2,R0
+				BLNE lcdPrintC
 				MOV R0,#16
 				MOV R1,#6
 				BL lcdGotoXY
 				POP {R0}
 				BL zehnerStelle
-				BL lcdPrintC
+				LDR R1,=SECOND_TEN
+				LDRB R2,[R1]
+				STRB R0,[R1]
+				CMP R0,R2
+				BLNE lcdPrintC
 				POP {LR,R6}
 				BX LR
 				ENDP
-updateeMinutes	PROC 
+updateMinutes	PROC 
+				PUSH {LR}
+				LDR R2,=60
+				UDIV R0,R0,R2
+				PUSH {R0}
+				MOV R0,#14
+				MOV R1,#6
+				BL lcdGotoXY
+				POP {R0}
+				PUSH {R0}
+				BL modulo10
+				ADD R0,#0x30
+				LDR R1,=MINUTE_DIGIT
+				LDRB R2,[R1]
+				STRB R0,[R1]
+				CMP R0,R2
+				BLNE lcdPrintC
+				MOV R0,#13
+				MOV R1,#6
+				BL lcdGotoXY
+				POP {R0}
+				BL zehnerStelle
+				LDR R1,=MINUTE_TEN
+				LDRB R2,[R1]
+				STRB R0,[R1]
+				CMP R0,R2
+				BLNE lcdPrintC
+				POP {LR}
+				BX LR
 				ENDP
 
-modulo          PROC
+modulo60        PROC
+				MOV R2,#60
+				UDIV R1,R0,R2
+				MUL R1,R2
+				SUB R0,R0,R1
+				BX LR
+				ENDP
+
+modulo10        PROC
 				MOV R2,#10
 				UDIV R1,R0,R2
 				MUL R1,R2
@@ -235,7 +284,7 @@ zehnerStelle	PROC
 				PUSH {LR}
 				MOV R2,#10
 				UDIV R0,R2
-				BL modulo
+				BL modulo10
 				ADD R0,#0x30
 				POP {LR}
 				BX LR
