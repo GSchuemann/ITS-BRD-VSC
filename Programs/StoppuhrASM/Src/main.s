@@ -38,6 +38,12 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
     EXTERN lcdPrintC            ; TFT output one character		
 	EXTERN Delay				; Delay (ms) function
 
+Const10ms EQU 1000
+Const100ms EQU 10000
+ConstS EQU 100000
+Const10S EQU 1000000
+Constmin EQU 10000000
+Const10min EQU 100000000
 
 ;********************************************
 ; Data section, aligned on 4-byte boundery
@@ -47,11 +53,14 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
 DEFAULT_BRIGHTNESS	DCW     800
 MY_TEXT				DCB		"Hold down different buttons from S0 to S7 and watch D8 to D15.", 0
 MY_TIME			    DCB		"00:00:00", 0
-SECOND_DIGIT		DCB     "0"
-SECOND_TEN		    DCB		"0"
-MINUTE_DIGIT		DCB		"0"
-MINUTE_TEN			DCB		"0"		
+TEN_MS		        DCB     "0"
+HUNDRED_MS		   	DCB		"0"
+SECOND       		DCB		"0"
+TEN_SECONDS			DCB		"0"	
+MINUTE       		DCB		"0"
+TEN_MINUTES			DCB		"0"
 
+MY_STATES			DCD init_start, init, init_end,running_start,running,hold_start,hold
 ;********************************************
 ; Code section, aligned on 8-byte boundery
 ;********************************************
@@ -87,93 +96,117 @@ main	PROC
 		BL lcdGotoXY
 		LDR R0,=MY_TIME
 		BL  	lcdPrintS
-		MOV R0, #2
+		MOV R9, #0     ;State Index
 		MOV R11,#0x01 ;LED PrüfMaske
 
 superloop
 		; read buttons
+		LDR 	R13,=0x20000560
 		LDR		R2,=GPIO_F_PIN
 		ldrh	R2,[R2]
-if_01   CMP R0,#2
+		LDR	R1,=MY_STATES	
+		LDR	R1,[R1,R9]	
+		BLX R1
+		BAL superloop
 
-then_01 BEQ init
-
-else_if_02 CMP R0,#4
-
-then_02 BEQ running
-
-else_if_03 CMP R0,#8
-
-then_03 BEQ stop
-		;and		R0,#0xFF   ; set bit 31 to 8 of R0 to 0 ; bit 7 to 0 do not change
-		; bit i for R0 is 1 <=> button S<i> not pressed (for 0 <= i <= 7)
-		; bit i for R0 is 0 <=> button S<i>     pressed (for 0 <= i <= 7)
-		
+init_start 	PROC
+			PUSH {LR}
+			BL clrAllLEDS
+			MOV R9, #4
+			POP {PC}
+			ENDP
 init    PROC
-		TST    R2, R11 ,LSL #7
-		BLEQ s7Pressed	
-        BAL endif_01
-		ENDP
-running    PROC
-		PUSH {R0,R2,R3}
-		BAL updateTime
-		TST    R2, R11 ,LSL #6
-		BLEQ s6Pressed
-		POP{R2,R3}
-		TST  R2, R11 ,LSL #5
-		BLEQ s5Pressed
-		POP {R0}
-        BAL endif_01
-		ENDP
-stop    PROC
-		PUSH{R2,R3}
-		TST    R2, R11 ,LSL #5
-		BLEQ s5Pressed
-		POP{R2,R3}	
-		TST  R2, R11 ,LSL #7
-		BLEQ s7Pressed	
-        BAL endif_01
-		ENDP
+		PUSH {LR}
+if_01   TST    R2, R11 ,LSL #7
+		BNE endif_01
+		
+then_01 MOV R0,#7
+		MOV R9, #8
+		BL waitForRelease
 
-endif_01
-        BAL superloop
-
-s5Pressed       PROC
+endif_01		
+        POP {PC}
+		ENDP
+init_end 	PROC
+			ldr 	R1,=TIM2_ERG   			; Restart timer	
+			mov		R0,#0x01
+			strh	R0,[R1]					; Set UG Bit
+			MOV R9, #12
+			BX LR 
+			ENDP
+running_start 	PROC
 				PUSH {LR}
-				MOV R0,#5
-				BL waitForRelease
+				MOV R1,#0x1
+				BL setLED
+				BL clrHoldLED
+				MOV R9, #16
+				POP {PC}
+				ENDP
+running PROC
+		PUSH {LR,R2}
+		BL updateTime
+		POP{R2}	
+if_02   TST R2, R11 ,LSL #6
+		BNE endif_02
+
+then_02	MOV R0,#6
+		MOV R9, #20
+		BL waitForRelease
+endif_02		
+
+if_03   TST  R2, R11 ,LSL #5
+		BNE endif_03
+
+then_03 MOV R9, #0
+		MOV R0, #5
+		BL waitForRelease
+
+endif_03
+		POP {PC}
+		ENDP
+hold_start	PROC 
+			PUSH {LR}
+			MOV R1,#2
+			BL setLED
+			MOV R9, #24
+			POP {LR}
+			BX LR
+			ENDP
+hold    PROC
+		PUSH{LR,R2}
+if_04	TST    R2, R11 ,LSL #5
+		BNE endif_04
+
+then_04	MOV R0,#5
+		MOV R9, #0
+		BL waitForRelease
+endif_04		
+
+		POP{R2}	
+if_05	TST  R2, R11 ,LSL #7
+		BNE endif_05
+
+then_05	MOV R0,#7
+		MOV R9, #12
+		BL waitForRelease
+endif_05
+        POP {PC}
+		ENDP
+
+clrAllLEDS		PROC
 				LDR R0,=GPIO_D_CLR
-			    MOV R2,#0x03
+				MOV R2,#0xFF
 				STR R2,[R0]
-				MOV R0,#2
-				POP {LR}
 				BX LR
 				ENDP
-s6Pressed       PROC 
-				PUSH {LR}
-				MOV R0,#6
-				BL waitForRelease
-				LDR R0,=GPIO_D_SET
-			    MOV R2,#2
-				STR R2,[R0]
-				MOV R0,#8
-				POP {LR}
-				BX LR
-				ENDP
-
-s7Pressed       PROC 
-				PUSH {LR}
-				MOV R0,#7
-				BL waitForRelease
-				BL setTimer
-				LDR R0,=GPIO_D_SET
-			    MOV R2,#1
-				STR R2,[R0]
+clrHoldLED		PROC
 				LDR R0,=GPIO_D_CLR
-			    MOV R2,#0x02
+				MOV R2,#0x02
 				STR R2,[R0]
-				MOV R0,#4
-				POP {LR}
+				ENDP
+setLED			PROC
+				LDR R0,=GPIO_D_SET
+				STR R1,[R0]
 				BX LR
 				ENDP
 
@@ -184,53 +217,74 @@ waitForRelease 	PROC
 				TST  R2, R10
 				BEQ waitForRelease
 				BX LR
-			   	ENDP
-
-setTimer      PROC 
-				ldr 	R5,=TIM2_ERG   			; Set pre scaler such that 1 timer tick represents 10 us
-				BX LR
 				ENDP
+
+
 updateTime		PROC
+				PUSH {LR,R5}
 				LDR     R5,=TIMER
 				LDR     R1,[R5]
 				SUB 	R1,R8
 				;MOV     R1,R8
-				PUSH {LR,R0}
 				BL updateSeconds
-				POP {LR,R0}
-				BX LR
+				POP {PC,R5}
 				ENDP
 updateSeconds 	PROC			
-				PUSH {LR,R6}
+				PUSH {LR,R6,R1}
+				BL updateMilli
 				LDR R6,=100000
+				POP {R1}
 				UDIV R0,R1,R6
 				PUSH {R0}
 				BL updateMinutes
 				POP {R0}
 				BL modulo60
-				PUSH{R0}
-				MOV R0,#17
-				MOV R1,#6
-				BL lcdGotoXY
-				POP {R0}
 				PUSH {R0}	
 				BL modulo10
 				ADD R0,#0x30
-				LDR R1,=SECOND_DIGIT
+				LDR R1,=SECOND
 				LDRB R2,[R1]
 				STRB R0,[R1]
 				CMP R2,R0
-				BLNE lcdPrintC
-				MOV R0,#16
-				MOV R1,#6
-				BL lcdGotoXY
+				MOV R2,#14
+				MOV R3,R0
+				BLNE writeToScreen
 				POP {R0}
 				BL zehnerStelle
-				LDR R1,=SECOND_TEN
+				LDR R1,=TEN_SECONDS
 				LDRB R2,[R1]
 				STRB R0,[R1]
 				CMP R0,R2
-				BLNE lcdPrintC
+				MOV R2,#13
+				MOV R3,R0
+				BLNE writeToScreen
+				POP {LR,R6}
+				BX LR
+				ENDP
+updateMilli     PROC
+				PUSH {LR,R6}
+				LDR R6,=1000
+				UDIV R0,R1,R6
+				;BL modulo60
+				PUSH {R0}	
+				BL modulo10
+				ADD R0,#0x30
+				LDR R1,=TEN_MS
+				LDRB R2,[R1]
+				STRB R0,[R1]
+				CMP R2,R0
+				MOV R2,#17
+				MOV R3,R0
+				BLNE writeToScreen
+				POP {R0}
+				BL zehnerStelle
+				LDR R1,=HUNDRED_MS
+				LDRB R2,[R1]
+				STRB R0,[R1]
+				CMP R0,R2
+				MOV R2,#16
+				MOV R3,R0
+				BLNE writeToScreen
 				POP {LR,R6}
 				BX LR
 				ENDP
@@ -239,32 +293,64 @@ updateMinutes	PROC
 				LDR R2,=60
 				UDIV R0,R0,R2
 				PUSH {R0}
-				MOV R0,#14
-				MOV R1,#6
-				BL lcdGotoXY
-				POP {R0}
-				PUSH {R0}
 				BL modulo10
 				ADD R0,#0x30
-				LDR R1,=MINUTE_DIGIT
+				LDR R1,=MINUTE
 				LDRB R2,[R1]
 				STRB R0,[R1]
 				CMP R0,R2
-				BLNE lcdPrintC
-				MOV R0,#13
-				MOV R1,#6
-				BL lcdGotoXY
+				MOV R2,#11
+				MOV R3,R0
+				BLNE writeToScreen
 				POP {R0}
 				BL zehnerStelle
-				LDR R1,=MINUTE_TEN
+				LDR R1,=TEN_MINUTES
 				LDRB R2,[R1]
 				STRB R0,[R1]
 				CMP R0,R2
-				BLNE lcdPrintC
+				MOV R2,#10
+				MOV R3,R0
+				BLNE writeToScreen
 				POP {LR}
 				BX LR
 				ENDP
 
+displayTime 	PROC
+				PUSH {LR}
+				BL update10Min
+				BL updateMin
+				BL update10S
+				BL updateS
+				BL update100ns
+				BL update10ns
+				POP  {LR}
+				BX LR
+				ENDP
+update10Min     PROC
+				ENDP
+
+updateMin       PROC
+				ENDP
+
+update10S       PROC 
+				ENDP
+
+updateS   		PROC
+				ENDP
+update100ns     PROC
+				ENDP
+update10ns 		PROC
+				ENDP
+
+writeToScreen	PROC ;R2 is the pos of the digit to Write, R3 is the digit
+				PUSH {LR}
+				MOV R0,R2
+				MOV R1,#6
+				BL lcdGotoXY
+				MOV R0,R3
+				BL lcdPrintC
+				POP  {LR}
+				ENDP 
 modulo60        PROC
 				MOV R2,#60
 				UDIV R1,R0,R2

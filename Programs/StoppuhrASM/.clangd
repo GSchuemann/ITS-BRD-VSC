@@ -1,6 +1,6 @@
 CompileFlags:
   CompilationDatabase: >-
-    /home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/out/StoppuhrASM/ITSboard_Assembly/Debug
+    /media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/out/StoppuhrASM/ITSboard_Assembly/Debug
   Add:
     - "-D_ILP32=1\r\n"
     - "-D_USE_STATIC_INLINE=1\r\n"
@@ -412,26 +412,27 @@ CompileFlags:
     - "-D__thumb2__=1\r\n"
     - "-D__thumb__=1\r\n"
     - '-D__ARMCOMPILER_LIBCXX=1'
-    - '-I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/Inc'
+    - '-I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/Inc'
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Drivers/CMSIS/Device/ST/STM32F4xx/Include
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Drivers/CMSIS/Include
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Drivers/CMSIS/Include
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Drivers/STM32F4xx_HAL_Driver/Inc
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Drivers/STM32F4xx_HAL_Driver/Inc
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Drivers/BSP/STM32F4xx_Nucleo_144
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Drivers/BSP/STM32F4xx_Nucleo_144
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Utilities/Fonts
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/../../stm32cubef4/Utilities/Fonts
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/../../DisplayWaveshare/Inc
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/../../DisplayWaveshare/Inc
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/../../ITS_BRD_LIB/Utilities/AddFonts
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/../../ITS_BRD_LIB/Utilities/AddFonts
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/tmp/StoppuhrASM.Debug+ITSboard_Assembly
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/tmp/StoppuhrASM.Debug+ITSboard_Assembly
     - >-
-      -I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/RTE/_Debug_ITSboard_Assembly
-    - '-I/home/georg/.cache/arm/packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include'
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/RTE/_Debug_ITSboard_Assembly
+    - '-I/home/schorschie/.cache/arm/packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include'
     - >-
-      -I/home/georg/.cache/arm/packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
-    - '-I/home/georg/study/ITS-BRD-VSC/Programs/StoppuhrASM/../../ITS_BRD_LIB/Inc'
+      -I/home/schorschie/.cache/arm/packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+    - >-
+      -I/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/StoppuhrASM/../../ITS_BRD_LIB/Inc
