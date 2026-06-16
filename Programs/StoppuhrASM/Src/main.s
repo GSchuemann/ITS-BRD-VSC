@@ -98,7 +98,6 @@ main	PROC
 
 superloop
 		; read buttons
-		LDR 	R13,=0x20000560
 		BL checktimer
 		LDR		R2,=GPIO_F_PIN
 		ldrh	R2,[R2]
