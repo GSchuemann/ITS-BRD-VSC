@@ -52,7 +52,9 @@ Const10min EQU 100000000
 
 DEFAULT_BRIGHTNESS	DCW     800
 MY_TEXT				DCB		"Hold down different buttons from S0 to S7 and watch D8 to D15.", 0
-MY_TIME			    DCB		"00:00:00", 0
+MY_TIME		    	DCB		"00:00.00", 0
+MY_TIME_NEW		    DCB		"00:00.00", 0
+MY_TIME_OLD		    DCB		"00:00.00", 0
 TEN_MS		        DCB     "0"
 HUNDRED_MS		   	DCB		"0"
 SECOND       		DCB		"0"
@@ -60,6 +62,7 @@ TEN_SECONDS			DCB		"0"
 MINUTE       		DCB		"0"
 TEN_MINUTES			DCB		"0"
 
+TIME_DIVIDERS		DCD		60000000,6000000,0,1000000,100000,0,10000,1000
 MY_STATES			DCD init_start, init, init_end,running_start,running,hold_start,hold
 ;********************************************
 ; Code section, aligned on 8-byte boundery
@@ -90,18 +93,13 @@ main	PROC
 		bl  	lcdSetFont
 
 		; Ihre Initialisierung
-		MOV R0,#10
-		MOV R1,#6
-		MOV R8,#0
-		BL lcdGotoXY
-		LDR R0,=MY_TIME
-		BL  	lcdPrintS
 		MOV R9, #0     ;State Index
 		MOV R11,#0x01 ;LED PrüfMaske
 
 superloop
 		; read buttons
 		LDR 	R13,=0x20000560
+		BL checktimer
 		LDR		R2,=GPIO_F_PIN
 		ldrh	R2,[R2]
 		LDR	R1,=MY_STATES	
@@ -111,6 +109,12 @@ superloop
 
 init_start 	PROC
 			PUSH {LR}
+			MOV R0,#10
+			MOV R1,#6
+			MOV R8,#0
+			BL lcdGotoXY
+			LDR R0,=MY_TIME
+			BL  	lcdPrintS
 			BL clrAllLEDS
 			MOV R9, #4
 			POP {PC}
@@ -144,7 +148,7 @@ running_start 	PROC
 				ENDP
 running PROC
 		PUSH {LR,R2}
-		BL updateTime
+		BL displayTime
 		POP{R2}	
 if_02   TST R2, R11 ,LSL #6
 		BNE endif_02
@@ -218,130 +222,79 @@ waitForRelease 	PROC
 				BEQ waitForRelease
 				BX LR
 				ENDP
-
-
-updateTime		PROC
-				PUSH {LR,R5}
-				LDR     R5,=TIMER
-				LDR     R1,[R5]
-				SUB 	R1,R8
-				;MOV     R1,R8
-				BL updateSeconds
-				POP {PC,R5}
-				ENDP
-updateSeconds 	PROC			
-				PUSH {LR,R6,R1}
-				BL updateMilli
-				LDR R6,=100000
-				POP {R1}
-				UDIV R0,R1,R6
-				PUSH {R0}
-				BL updateMinutes
-				POP {R0}
-				BL modulo60
-				PUSH {R0}	
-				BL modulo10
-				ADD R0,#0x30
-				LDR R1,=SECOND
-				LDRB R2,[R1]
-				STRB R0,[R1]
-				CMP R2,R0
-				MOV R2,#14
-				MOV R3,R0
-				BLNE writeToScreen
-				POP {R0}
-				BL zehnerStelle
-				LDR R1,=TEN_SECONDS
-				LDRB R2,[R1]
-				STRB R0,[R1]
-				CMP R0,R2
-				MOV R2,#13
-				MOV R3,R0
-				BLNE writeToScreen
-				POP {LR,R6}
-				BX LR
-				ENDP
-updateMilli     PROC
-				PUSH {LR,R6}
-				LDR R6,=1000
-				UDIV R0,R1,R6
-				;BL modulo60
-				PUSH {R0}	
-				BL modulo10
-				ADD R0,#0x30
-				LDR R1,=TEN_MS
-				LDRB R2,[R1]
-				STRB R0,[R1]
-				CMP R2,R0
-				MOV R2,#17
-				MOV R3,R0
-				BLNE writeToScreen
-				POP {R0}
-				BL zehnerStelle
-				LDR R1,=HUNDRED_MS
-				LDRB R2,[R1]
-				STRB R0,[R1]
-				CMP R0,R2
-				MOV R2,#16
-				MOV R3,R0
-				BLNE writeToScreen
-				POP {LR,R6}
-				BX LR
-				ENDP
-updateMinutes	PROC 
+checktimer		PROC
 				PUSH {LR}
-				LDR R2,=60
-				UDIV R0,R0,R2
-				PUSH {R0}
-				BL modulo10
-				ADD R0,#0x30
-				LDR R1,=MINUTE
-				LDRB R2,[R1]
-				STRB R0,[R1]
-				CMP R0,R2
-				MOV R2,#11
+				LDR     R2,=TIMER
+				LDR     R2,[R2]
+				MOV R3,#0
+				BL updateTimeString
+				MOV R2,R0
+				MOV R3,#1
+				BL updateTimeString
+				MOV R2,R0
+				MOV R3,#3
+				BL updateTimeString
+				MOV R2,R0
+				MOV R3,#4
+				BL updateTimeString
+				MOV R2,R0
+				MOV R3,#6
+				BL updateTimeString
+				MOV R2,R0
+				MOV R3,#7
+				BL updateTimeString
+				POP {PC}
+				ENDP
+updateTimeString 	PROC
+					PUSH{R4}
+					LDR R0,=MY_TIME_NEW
+					LDR R4,=TIME_DIVIDERS
+					LDR R4,[R4,R3,LSL #2]
+					UDIV R1,R2,R4
+
+if_06				CMP R1,#0
+					BNE then_06
+					BAL else_06
+
+then_06				MUL R4,R1
+					SUB R4,R2,R4
+					BAL endif_06
+
+else_06				MOV R4,R2
+
+endif_06			ADD R1,#0x30
+					STRB R1,[R0,R3]
+					MOV R0,R4
+					POP {R4}
+					BX LR
+					ENDP
+
+displayTime		PROC
+				PUSH {LR,R4}
+				LDR R0, =MY_TIME_NEW
+				LDR R2, =MY_TIME_OLD
+				MOV R4,#0
+repeat_01		
+				LDRB R0, [R0,R4] 
+				LDRB R1, [R2,R4]
+				STRB R0, [R2,R4]
+				CMP R0,R1
+				MOV R2,R4
+				ADD R2,#10
 				MOV R3,R0
 				BLNE writeToScreen
-				POP {R0}
-				BL zehnerStelle
-				LDR R1,=TEN_MINUTES
-				LDRB R2,[R1]
-				STRB R0,[R1]
-				CMP R0,R2
-				MOV R2,#10
-				MOV R3,R0
-				BLNE writeToScreen
-				POP {LR}
-				BX LR
-				ENDP
 
-displayTime 	PROC
-				PUSH {LR}
-				BL update10Min
-				BL updateMin
-				BL update10S
-				BL updateS
-				BL update100ns
-				BL update10ns
-				POP  {LR}
-				BX LR
-				ENDP
-update10Min     PROC
-				ENDP
+				LDR R0, =MY_TIME_NEW
+				LDR R2, =MY_TIME_OLD
+				ADD R4,#1
+until_01
+				CMP R4,#8
+				BEQ enduntil_01
+				BAL repeat_01
 
-updateMin       PROC
+enduntil_01
+				POP {PC,R4}
 				ENDP
-
-update10S       PROC 
-				ENDP
-
-updateS   		PROC
-				ENDP
-update100ns     PROC
-				ENDP
-update10ns 		PROC
-				ENDP
-
 writeToScreen	PROC ;R2 is the pos of the digit to Write, R3 is the digit
 				PUSH {LR}
 				MOV R0,R2
@@ -349,32 +302,10 @@ writeToScreen	PROC ;R2 is the pos of the digit to Write, R3 is the digit
 				BL lcdGotoXY
 				MOV R0,R3
 				BL lcdPrintC
-				POP  {LR}
+				POP  {PC}
 				ENDP 
-modulo60        PROC
-				MOV R2,#60
-				UDIV R1,R0,R2
-				MUL R1,R2
-				SUB R0,R0,R1
-				BX LR
-				ENDP
 
-modulo10        PROC
-				MOV R2,#10
-				UDIV R1,R0,R2
-				MUL R1,R2
-				SUB R0,R0,R1
-				BX LR
-				ENDP
-zehnerStelle	PROC
-				PUSH {LR}
-				MOV R2,#10
-				UDIV R0,R2
-				BL modulo10
-				ADD R0,#0x30
-				POP {LR}
-				BX LR
-				ENDP
+
 
 		; switch LEDs off (button s<i> not pressed : LED D<î+8> switched off (for 0 <= i <= 7)
 		;LDR		R1,=GPIO_D_CLR
