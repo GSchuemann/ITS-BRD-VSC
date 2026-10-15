@@ -13,21 +13,16 @@
 #include "lcd.h"
 #include "stm32f4xx_hal.h"
 #include "../Inc/display.h"
+#include "../Inc/scanner.h"
 
 
-void init_display(void);
 int main(void) {
    initITSboard(); // Initialisierung des ITS Boards
 
-   // GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
-   // TP_Init(false); // Initialisierung des LCD Boards mit Touch
-
    init_display();
-
-   // Test in Endlosschleife
-   const int POLL_DELAY = 10000;
+   T_token tok;
    while (1) {
-      HAL_Delay(POLL_DELAY);
+      tok = next_token();
    }
 }
 
