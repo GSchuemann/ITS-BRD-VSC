@@ -12,15 +12,17 @@
 #include "init.h"
 #include "lcd.h"
 #include "stm32f4xx_hal.h"
+#include "../Inc/display.h"
 
+
+void init_display(void);
 int main(void) {
    initITSboard(); // Initialisierung des ITS Boards
 
-   GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
-   TP_Init(false); // Initialisierung des LCD Boards mit Touch
+   // GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
+   // TP_Init(false); // Initialisierung des LCD Boards mit Touch
 
-   // Begruessungstext
-   lcdPrintlnS("Hallo liebes TI-Labor (c-project)");
+   init_display();
 
    // Test in Endlosschleife
    const int POLL_DELAY = 10000;
