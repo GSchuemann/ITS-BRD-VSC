@@ -14,16 +14,14 @@
 #include "stm32f4xx_hal.h"
 #include "../Inc/display.h"
 #include "../Inc/scanner.h"
-
+#include <stdio.h>
 
 int main(void) {
    initITSboard(); // Initialisierung des ITS Boards
 
    init_display();
-   T_token tok;
    while (1) {
-      tok = next_token();
+      T_token tok = next_token();
+      printf("tok %x:",tok);
    }
 }
-
-// EOF
