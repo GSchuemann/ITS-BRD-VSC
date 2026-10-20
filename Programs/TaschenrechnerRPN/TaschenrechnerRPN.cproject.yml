@@ -187,6 +187,7 @@ project:
         - file: Inc/scanner.h
         - file: Inc/stack.h
         - file: Inc/statuses.h
+        - file: Inc/token.h
 
     # Benutzerdefinierte Programmdateien
     - group: Program/User/Src
@@ -194,7 +195,6 @@ project:
         - file: Src/main.c
         - file: Src/display.c
         - file: Src/scanner.c
-        - file: Src/token.h
         - file: Src/stack.c
 
   components:

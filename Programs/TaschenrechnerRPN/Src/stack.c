@@ -1,9 +1,13 @@
 #include "../Inc/stack.h"
 #include "../Inc/statuses.h"
-static int32_t stack_pointer = -1;
+#define MIN_STACK_POINTER (-1);
+#define STACK_SIZE  100;
+
+
+static int32_t stack_pointer = MIN_STACK_POINTER;
 static int32_t stack[100] = {};
 bool is_stack_empty(){
-    return stack_pointer == -1;
+    return stack_pointer == MIN_STACK_POINTER;
 };
 
 int32_t add_to_stack(int32_t number) {
