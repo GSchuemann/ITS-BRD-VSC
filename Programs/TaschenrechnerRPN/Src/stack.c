@@ -1,5 +1,5 @@
 #include "../Inc/stack.h"
-#include "../Inc/statuses.h"
+#include "../Inc/status.h"
 #define MIN_STACK_POINTER (-1);
 #define STACK_SIZE  100;
 
@@ -20,11 +20,11 @@ int32_t add_to_stack(int32_t number) {
 }
 
 int32_t pop_from_stack(int32_t* ret){
-    stack_pointer--;
     if(stack_pointer < 0) {
         return CALC_INDEX_OUT_OF_BOUNDS;
     }
     *ret = stack[stack_pointer];
+    stack_pointer--;
     return CALC_STATUS_OK;
 }
 
