@@ -186,7 +186,7 @@ project:
         - file: Inc/main.h
         - file: Inc/scanner.h
         - file: Inc/stack.h
-        - file: Inc/statuses.h
+        - file: Inc/status.h
         - file: Inc/token.h
 
     # Benutzerdefinierte Programmdateien

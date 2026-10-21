@@ -1,0 +1,9 @@
+{
+    "targetSet": {
+        "Programs/TaschenrechnerRPN/TaschenrechnerRPN": {
+            "activeTargetType": "ITSboard"
+        }
+    },
+    "activeSolution": "../Programs/TaschenrechnerRPN/TaschenrechnerRPN.csolution.yml",
+    "activeTarget": "ITSboard"
+}

@@ -13,7 +13,7 @@ bool is_stack_empty(){
 int32_t add_to_stack(int32_t number) {
     stack_pointer++;
     if(stack_pointer > 100){
-        return CALC_INDEX_OUT_OF_BOUNDS;
+        return CALC_STATUS_STACK_FULL;
     }
     stack[stack_pointer] = number;
     return CALC_STATUS_OK;
@@ -21,7 +21,7 @@ int32_t add_to_stack(int32_t number) {
 
 int32_t pop_from_stack(int32_t* ret){
     if(stack_pointer < 0) {
-        return CALC_INDEX_OUT_OF_BOUNDS;
+        return CALC_STATUS_STACK_EMPTY;
     }
     *ret = stack[stack_pointer];
     stack_pointer--;

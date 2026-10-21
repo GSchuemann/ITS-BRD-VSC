@@ -1,11 +1,10 @@
 #ifndef STATUS_H
 #define STATUS_H
 
-enum status {
-    STATUS_OK = 0,
-    STATUS_ARITH_OVERFLOW = 1,
-    STATUS_OVERFLOW = 2,
-    CALC_INDEX_OUT_OF_BOUNDS = -1
-};
+#define CALC_STATUS_OK 0
+#define CALC_STATUS_DIV_BY_ZERO (-1)
+#define CALC_STATUS_OVERFLOW (-2)
+#define CALC_STATUS_STACK_FULL (-3)
+#define CALC_STATUS_STACK_EMPTY (-4)
 
-#endif
+#endif /* STATUS_H */
