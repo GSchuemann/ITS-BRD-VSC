@@ -1,7 +1,7 @@
 /**
  * @file scanner.h
- * @author Franz Korf, HAW Hamburg
- * @date Mar 2016
+ * @author Xuan Hoang Duy, Georg Schümann
+ * @date Okt 2026
  * @brief Header file of input module.
  */
 

@@ -24,7 +24,7 @@ int32_t math_add(int32_t* result)
         return CALC_STATUS_OVERFLOW;
     }
     if ((b < 0) && (a < (INT_MIN - b))) {
-         return CALC_STATUS_OVERFLOW;
+        return CALC_STATUS_OVERFLOW;
     }
     *result = a + b;
     return CALC_STATUS_OK;

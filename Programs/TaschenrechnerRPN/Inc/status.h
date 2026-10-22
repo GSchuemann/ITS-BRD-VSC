@@ -7,6 +7,7 @@ enum Status {
     CALC_STATUS_OVERFLOW = -2,
     CALC_STATUS_STACK_FULL = -3,
     CALC_STATUS_STACK_EMPTY = -4,
+    CALC_STATUS_NO_ACTION = 1,
 };
 
 #endif /* STATUS_H */
