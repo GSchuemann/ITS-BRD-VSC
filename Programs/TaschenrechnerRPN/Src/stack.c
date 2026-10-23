@@ -1,20 +1,20 @@
 #include "../Inc/stack.h"
 #include "../Inc/status.h"
-#define MIN_STACK_POINTER (-1);
-#define STACK_SIZE  100;
+#define MIN_STACK_POINTER (-1)
+#define STACK_SIZE  100
 
 
 static int32_t stack_pointer = MIN_STACK_POINTER;
-static int32_t stack[100] = {};
+static int32_t stack[STACK_SIZE];
 bool is_stack_empty(){
     return stack_pointer == MIN_STACK_POINTER;
 };
 
 int32_t add_to_stack(int32_t number) {
-    stack_pointer++;
-    if(stack_pointer > 100){
+    if(stack_pointer >= (STACK_SIZE - 1)){
         return CALC_STATUS_STACK_FULL;
     }
+    stack_pointer++;
     stack[stack_pointer] = number;
     return CALC_STATUS_OK;
 }
