@@ -15,7 +15,7 @@ __pycache__/
 
 #no built binaries
 *.exe
-+.out
+*.out
 
 ### macOS ###
 # General
