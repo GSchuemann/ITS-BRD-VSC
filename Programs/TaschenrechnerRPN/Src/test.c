@@ -17,7 +17,7 @@ int test(){
     uint32_t stack_pos = get_last_stack_pos();
     void* stack_addr = get_stack_start_addr();
     
-    void* int_ptr = (void *) stack_addr + (stack_pos  * sizeof(uint32_t)); //pointer arithmetic, should be done cleaner for testing!
+    void* int_ptr = (void *) stack_addr + (stack_pos  * sizeof(bigInt)); //pointer arithmetic, should be done cleaner for testing!
     int32_t status = push_part_numb(int_ptr,1LL << 31);
     printf("status, should be 0: %d\n",status);
     status = push_part_numb(int_ptr,1LL << 3);
