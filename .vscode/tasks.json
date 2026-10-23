@@ -28,12 +28,11 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
+                "cwd": "${workspaceFolder}/Programs/TestNewFontAssembler",
                 "shell": {
-                    "executable": "cmd.exe",
+                    "executable": "/bin/bash",
                     "args": [
-                        "/d",
-                        "/c"
+                        "-c"
                     ]
                 }
             },
@@ -52,12 +51,11 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
+                "cwd": "${workspaceFolder}/Programs/TestNewFontAssembler",
                 "shell": {
-                    "executable": "cmd.exe",
+                    "executable": "/bin/bash",
                     "args": [
-                        "/d",
-                        "/c"
+                        "-c"
                     ]
                 }
             },
@@ -75,12 +73,11 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
+                "cwd": "${workspaceFolder}/Programs/TestNewFontAssembler",
                 "shell": {
-                    "executable": "cmd.exe",
+                    "executable": "/bin/bash",
                     "args": [
-                        "/d",
-                        "/c"
+                        "-c"
                     ]
                 }
             },
@@ -88,6 +85,8 @@
                 "gdbserver",
                 "--probe",
                 "stlink:",
+                "--connect",
+                "attach",
                 "--persist",
                 "--reset-run",
                 "--cbuild-run",
@@ -112,12 +111,11 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
+                "cwd": "${workspaceFolder}/Programs/TestNewFontAssembler",
                 "shell": {
-                    "executable": "cmd.exe",
+                    "executable": "/bin/bash",
                     "args": [
-                        "/d",
-                        "/c"
+                        "-c"
                     ]
                 }
             },

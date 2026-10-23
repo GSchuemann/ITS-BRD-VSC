@@ -13,6 +13,10 @@ __pycache__/
 # Ignore User specific setting
 /Programs/*/*.uvguix.*
 
+#no built binaries
+*.exe
++.out
+
 ### macOS ###
 # General
 .DS_Store
