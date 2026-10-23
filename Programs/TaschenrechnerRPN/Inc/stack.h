@@ -2,7 +2,7 @@
 #define STACK_H
 #include "stdint.h"
 #include <stdbool.h>
-
+#include "numbers.h"
 /*
  ****************************************************************************************
  * @brief : checks if the stack is empty
@@ -13,20 +13,20 @@ bool is_stack_empty(void);
 
 /*
  ****************************************************************************************
- * @brief : adds an int32 on top of the stack
+ * @brief : adds a bigInt on top of the stack
  *
  * @return Returns Status for adding
  ****************************************************************************************/
-int32_t add_to_stack(int32_t);
+int32_t add_to_stack(bigInt);
 
 /*
  ****************************************************************************************
  * @brief : adds an writes last element on the stack to input pointer,
-  and deletes last element from stack
+    and deletes last element from stack
  *
  * @return Returns Status for Popping
  ****************************************************************************************/
-int32_t pop_from_stack(int32_t*);
+int32_t pop_from_stack(bigInt*);
 
 /*
  ****************************************************************************************
@@ -36,5 +36,7 @@ int32_t pop_from_stack(int32_t*);
  ****************************************************************************************/
 int32_t get_last_stack_pos(void);
 
+
+void* get_stack_start_addr(void);
 #endif /* SCANNER_H */
 // EOF

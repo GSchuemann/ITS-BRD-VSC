@@ -1,7 +1,8 @@
 #include "../Inc/numbers.h"
-#include "status.h"
+#include "../Inc/status.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 uint32_t alloc_big_int(bigInt *n, uint8_t new_capacity){
     if(n->capacity > new_capacity){
         return CALC_STATUS_NO_ACTION;
