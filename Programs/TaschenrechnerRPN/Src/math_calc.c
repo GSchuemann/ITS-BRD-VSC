@@ -22,14 +22,36 @@ int32_t math_add(bigInt* result)
     if (status < CALC_STATUS_OK) {
         return status;
     }
-    int carry = 0;
-    for(int32_t i =0;i<a.size;i++){ //Todo get biggest size
-        int32_t status = push_part_numb(result, (a.number[i] + b.number[i] + carry)); //Todo add carry
-        printf("%d %d %d i %d\n",status,result -> size, result -> number[i],i);
+    uint8_t carry = 0;
+    uint8_t size = 0;
+    if(a.size > b.size){
+        size = a.size;
+    } else {
+        size = b.size;
     }
-    printf("%d\n",result->number[0]);
+    for(int32_t i =0;i<size;i++){
+        uint32_t xpsr;
+        uint32_t sum;
+        uint32_t a_num = (i <= a.size)? a.number[i]:0;
+        uint32_t b_num = (i <= b.size)? b.number[i]:0;
+    __asm__ volatile (
+        "adds %[sum], %[a], %[b]\n\t"
+        "mrs  %[psr], xpsr"
+        : [sum] "=&r" (sum),
+            [psr] "=&r" (xpsr)
+        : [a] "r" (a_num),
+            [b] "r" (b_num)
+        : "cc"
+    );
+    push_part_numb(result,(sum+carry));
+    carry = (xpsr >> 29) & 1u;
+}
+    if(carry > 0){
+        push_part_numb(result,(carry));
+    }
+    free_big_int(&a);
+    free_big_int(&b);
 
-    // *result = a + b;
     return CALC_STATUS_OK;
 }
 

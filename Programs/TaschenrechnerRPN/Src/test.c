@@ -28,7 +28,7 @@ int test(){
 
     bigInt result = { .size=0, .capacity=0, .number = NULL, .sign=0};
     status = math_add(&result);
-    printf("status %d\nergebnis %ld\n", status ,*result.number);
+    printf("status %d\nergebnis %d %d\n", status ,result.number[0],result.number[1]);
     // add_to_stack(5);
     // add_to_stack(10);
     // int result = 0;

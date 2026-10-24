@@ -51,7 +51,6 @@ uint32_t push_part_numb(bigInt *n, uint32_t part_num);
  * @return void
  ****************************************************************************************/
 void big_int_print(bigInt *n);
-// T_token next_token(void);
 
 #endif /* SCANNER_H */
 // EOF
