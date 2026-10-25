@@ -190,6 +190,7 @@ project:
         - file: Inc/status.h
         - file: Inc/math_calc.h
         - file: Inc/test.h
+        - file: Inc/stack_functions.h
 
     # Benutzerdefinierte Programmdateien
     - group: Program/User/Src
@@ -198,8 +199,10 @@ project:
         - file: Src/display.c
         - file: Src/scanner.c
         - file: Src/stack.c
-        - file: Src/math_calc.c 
+        - file: Src/math_calc.c
         - file: Src/test.c
+        - file: Src/test_stack_functions.c
+        - file: Src/stack_functions.c
 
   components:
     - component: ARM::CMSIS:CORE

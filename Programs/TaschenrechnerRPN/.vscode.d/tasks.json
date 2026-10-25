@@ -5,8 +5,10 @@
             "label": "C-Pretty-Printer",
             "type": "shell",
             "command": "python3",
-            "args": ["${workspaceFolder}/bin/format_all.py",
-		     "${command:cmsis-csolution.getSolutionFile}"],
+            "args": [
+                "${workspaceFolder}/bin/format_all.py",
+                "${command:cmsis-csolution.getSolutionFile}"
+            ],
             "group": "none"
         },
         {
@@ -15,7 +17,8 @@
             "command": "python3",
             "args": [
                 "${workspaceFolder}/bin/lint_all.py",
-                "${command:cmsis-csolution.getSolutionFile}" ],
+                "${command:cmsis-csolution.getSolutionFile}"
+            ],
             "group": "none"
         }
     ]

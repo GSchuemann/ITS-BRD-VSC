@@ -9,7 +9,7 @@
 /Programs/**/.clangd
 /Programs/*/clang_tidy_result.txt
 __pycache__/
-.vscode/launch.json
+*settings.json
 # Ignore User specific setting
 /Programs/*/*.uvguix.*
 

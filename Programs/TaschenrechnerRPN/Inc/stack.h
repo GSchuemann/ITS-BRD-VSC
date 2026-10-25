@@ -22,7 +22,7 @@ int32_t add_to_stack(int32_t);
 /*
  ****************************************************************************************
  * @brief : adds an writes last element on the stack to input pointer,
-  and deletes last element from stack
+    and deletes last element from stack
  *
  * @return Returns Status for Popping
  ****************************************************************************************/

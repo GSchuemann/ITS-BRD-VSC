@@ -27,6 +27,8 @@
                     "gdbserver",
                     "--probe",
                     "stlink:",
+                    "--connect",
+                    "attach",
                     "--cbuild-run",
                     "${command:cmsis-csolution.getCbuildRunFile}",
                     "--quiet",
