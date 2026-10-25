@@ -2,6 +2,7 @@
 #include "../Inc/math_calc.h"
 #include <stdio.h>
 #include <limits.h>
+#include "../Inc/test.h"
 
 int test(){
 
@@ -57,6 +58,8 @@ int test(){
     status = math_mul(&result);
     printf("Status: %d (expected: negative)\n", status);
     printf("Status: %s\n\n", (status < 0) ? "pass" : "fail");
+
+    test_stack_functions();
 
     return 0;
 }

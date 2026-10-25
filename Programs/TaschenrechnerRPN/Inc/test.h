@@ -10,6 +10,7 @@
  ****************************************************************************************/
 int test(void);
 
+int test_stack_functions(void);
 
-#endif /* SCANNER_H */
+#endif /* TEST_H */
 // EOF
