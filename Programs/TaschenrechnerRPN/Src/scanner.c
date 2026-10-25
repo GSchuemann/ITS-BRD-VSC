@@ -19,11 +19,13 @@
  ****************************************************************************************/
 inline static char next_char(void) { return getKeyPadInput(); }
 
-T_token next_token(void) {
+T_token next_token(int clear) {
    // This scanner needs a lookahead of 1 to detect the end of a number token.
    // ' ' / ENTER will be handled as whitespace
    static char chr = ENTER; // next character according to lookahead of 1
-   clear_echo_term();
+   if (clear) {
+      clear_echo_term();
+   }
    while (ENTER == chr) {
       chr = next_char();
    };
@@ -55,6 +57,10 @@ T_token next_token(void) {
    case '9':
       erg.tok = NUMBER; // scan a number
       while (('0' <= chr) && (chr <= '9')) {
+         if (!clear) {//it was not cleared on entering the function. So we need to clear when first Number is entered
+            clear_echo_term();
+            clear = 1; 
+         }
          print_to_echo_line(chr);
          const int BASE = 10;
          erg.val = (erg.val * BASE) + (chr - '0');

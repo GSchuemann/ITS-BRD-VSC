@@ -22,7 +22,7 @@ int32_t add_to_stack(int32_t);
 /*
  ****************************************************************************************
  * @brief : adds an writes last element on the stack to input pointer,
-    and deletes last element from stack
+     and deletes last element from stack
  *
  * @return Returns Status for Popping
  ****************************************************************************************/
@@ -36,5 +36,12 @@ int32_t pop_from_stack(int32_t*);
  ****************************************************************************************/
 int32_t get_last_stack_pos(void);
 
+/*
+ ****************************************************************************************
+ * @brief : sets position of stack_pointer to -1
+ *
+ * @return Returns nothing
+ ****************************************************************************************/
+void clear_stack(void);
 #endif /* SCANNER_H */
 // EOF

@@ -33,7 +33,7 @@ void init_display(void) {
    Coordinate cor = term.bottomRight;
    cor.y = cor.y - term.font->Height - 1;
    stdout_term =
-       genTerm(term.topLeft, cor, term.bgColor, term.fgColor, term.font);
+      genTerm(term.topLeft, cor, term.bgColor, term.fgColor, term.font);
    cor = term.topLeft;
    cor.y = term.bottomRight.y - term.font->Height;
    echo_term = genTerm(cor, term.bottomRight, BLUE, YELLOW, term.font);

@@ -203,6 +203,7 @@ project:
         - file: Src/test.c
         - file: Src/test_stack_functions.c
         - file: Src/stack_functions.c
+        - file: Src/print.c
 
   components:
     - component: ARM::CMSIS:CORE
