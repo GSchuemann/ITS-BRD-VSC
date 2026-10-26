@@ -30,9 +30,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
                 "shell": {
-                    "executable": "/bin/bash",
+                    "executable": "cmd.exe",
                     "args": [
-                        "-c"
+                        "/d",
+                        "/c"
                     ]
                 }
             },
@@ -53,9 +54,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
                 "shell": {
-                    "executable": "/bin/bash",
+                    "executable": "cmd.exe",
                     "args": [
-                        "-c"
+                        "/d",
+                        "/c"
                     ]
                 }
             },
@@ -75,9 +77,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
                 "shell": {
-                    "executable": "/bin/bash",
+                    "executable": "cmd.exe",
                     "args": [
-                        "-c"
+                        "/d",
+                        "/c"
                     ]
                 }
             },
@@ -85,8 +88,6 @@
                 "gdbserver",
                 "--probe",
                 "stlink:",
-                "--connect",
-                "attach",
                 "--persist",
                 "--reset-run",
                 "--cbuild-run",
@@ -113,9 +114,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
                 "shell": {
-                    "executable": "/bin/bash",
+                    "executable": "cmd.exe",
                     "args": [
-                        "-c"
+                        "/d",
+                        "/c"
                     ]
                 }
             },
