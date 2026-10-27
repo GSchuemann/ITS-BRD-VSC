@@ -51,5 +51,6 @@ void print_num(int32_t num) {
 	}
 	while (n > 0) {
 		print_to_echo_line(digits[--n]);
-	}
+    }
+    print_to_echo_line(' '); //Print space in case multiple numbers are output
 };
