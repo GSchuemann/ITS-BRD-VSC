@@ -1,16 +1,19 @@
-#include "../Inc/stack.h"
-#include "../Inc/math_calc.h"
-#include <stdio.h>
-#include <limits.h>
 #include "../Inc/test.h"
+#include "../Inc/math_calc.h"
+#include "../Inc/stack.h"
 
-int test(){
+#include "terminal.h"
+#include <limits.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stm32f4xx_ll_usart.h>
 
-    int result = 0;
-    int status =0;
+
+int test() {
 
     printf("\n===== Tests(+-*/) =====\n\n"); 
-
+    int result = 0;
+    int status =0;
     /* Test: 5 + 10 = 15 */
     printf("Test(+): (5 +10)\n");
     add_to_stack(5);

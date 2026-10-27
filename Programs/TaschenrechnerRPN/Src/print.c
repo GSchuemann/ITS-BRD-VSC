@@ -33,8 +33,11 @@ void print_num_with_clear(int32_t num) {
    print_num(num);
 };
 void print_num(int32_t num) {
-   char digits[MAX_INT_ASCII_SIZE]; // enough for binary digits of an unsigned integer
+   char digits[MAX_INT_ASCII_SIZE]; // enough for binary digits of an unsigned
+                                    // integer
+   // NOLINTBEGIN
    uint32_t n = 0;
+   // NOLINTEND
    if (num < 0) {
       digits[n++] = '-';
       num *= -1;

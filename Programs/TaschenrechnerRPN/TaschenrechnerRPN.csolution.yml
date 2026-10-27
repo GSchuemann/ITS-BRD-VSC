@@ -1,5 +1,5 @@
 solution:
-  created-for: CMSIS-Toolbox@2.4.0
+  created-for: CMSIS-Toolbox@2.12.0
   cdefault:
   compiler: AC6
 
@@ -14,6 +14,10 @@ solution:
     - type: ITSboard
       board: STMicroelectronics::NUCLEO-F429ZI:Rev.B
       device: STMicroelectronics::STM32F429ZITx
+      target-set:
+        - set:
+          images:
+            - project-context: TaschenrechnerRPN_Debug.Debug
 
   # List of different build configurations.
   build-types:
@@ -27,4 +31,5 @@ solution:
 
   # List related projects.
   projects:
-    - project: TaschenrechnerRPN.cproject.yml
+    - project: TaschenrechnerRPN_Debug.cproject.yml
+    - project: TaschenrechnerRPN_Release.cproject.yml

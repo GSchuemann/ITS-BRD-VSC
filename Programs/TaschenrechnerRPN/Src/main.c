@@ -11,22 +11,25 @@
 // #include "LCD_Touch.h"
 #include "init.h"
 // #include "lcd.h"
+#include "../Inc/display.h"
+#include "../Inc/math_calc.h"
+#include "../Inc/print.h"
+#include "../Inc/scanner.h"
+#include "../Inc/stack.h"
+#include "../Inc/stack_functions.h"
+#include "LCD_GUI.h"
+#include "display.h"
+#include "lcd.h"
 #include "stack_functions.h"
 #include "status.h"
-#include "stm32f4xx_hal.h"
-#include "../Inc/display.h"
-#include "../Inc/scanner.h"
-#include "../Inc/print.h"
-#include "../Inc/stack.h"
-#include "../Inc/math_calc.h"
-#include "../Inc/stack_functions.h"
 //#include <stdint.h>
-#include <stdio.h>
 #include "../Inc/test.h"
 #include "token.h"
 //#include "../Inc/stack.h"
+#include "LCD_Touch.h"
 
-
+#define BUTTON_S0_PIN 1 // Example: Pin 0 for S1 (Continue)
+#define BUTTON_S7_PIN 1U << 7 // Example: Pin 6 for S7 (Skip)
 enum Status math_helper(T_token tok) {
    enum Status status = CALC_STATUS_OK;
 
@@ -53,12 +56,40 @@ enum Status math_helper(T_token tok) {
          return status;
       }
       return status;
-   }
+}
+uint8_t readAllButtons(void) {
+#define GPIOF_BASE 0x40021400
+   volatile uint32_t *gpiof_in = (volatile uint32_t *)(GPIOF_BASE + 0x10);
 
-int main(void) {
-   // test();
-   initITSboard(); // Initialisierung des ITS Boards
-   init_display();
+   return *(uint8_t *)gpiof_in; // Niedrigste 8 Bits zurückgeben
+}
+   int main(void) {
+   initITSboard(); // Initialisierung des ITS Board
+   GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
+   TP_Init(false);               // Initialisierung des LCD Boards mit Touch
+   #ifdef DEBUG
+   lcdGotoXY(8, 9);
+   lcdPrintlnS("Tests laufen laufen lassen?");
+   lcdGotoXY(0, 18);
+   lcdPrintlnS("S7 Weiter");
+   lcdGotoXY(25, 18);
+   lcdPrintlnS("S0 Ueberpsringen");
+   while (1) {
+      uint8_t buttons = readAllButtons(); // Niedrigste 8 Bits zurückgeben
+      uint8_t s0pressed = (buttons & (BUTTON_S0_PIN)) == 0;
+      uint8_t s7pressed = (buttons & (BUTTON_S7_PIN)) == 0;
+
+      if (s0pressed) {
+         break;
+      }
+      if (s7pressed) {
+         test();
+         break;;
+      }
+
+   }
+   #endif // DEBUG
+      init_display();
    enum Status status = CALC_STATUS_OK;
    int clear = 1; 
    while (1) {
