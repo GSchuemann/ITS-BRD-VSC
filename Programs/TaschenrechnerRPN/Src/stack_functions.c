@@ -27,7 +27,7 @@ enum Status print_from_stack(uint8_t n) {
 	return CALC_STATUS_OK;
 }
 
-void clear_ll(void) {
+void clear_all(void) {
 	clear_stack();
 	set_normal_mode();
 }
