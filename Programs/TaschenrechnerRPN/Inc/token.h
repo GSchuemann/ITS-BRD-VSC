@@ -24,8 +24,8 @@
 #define OVERFLOW 'O'   //!< Overflow during input of a number
 
 typedef struct { //!< This structure stores a token
-   char tok;
-   int val; // value of NUMBER token
+	char tok;
+	int val; // value of NUMBER token
 } T_token;
 
 #endif /* TOKEN_H */

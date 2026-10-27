@@ -1,7 +1,6 @@
 #ifndef TEST_H
 #define TEST_H
 
-
 /**
  *****************************************************************************
  * @brief  Tests the operations + - * / including error cases and prints pass or
@@ -10,7 +9,7 @@
  * @return 0 after all tests were executed.
  *****************************************************************************/
 int test(void);
- 
+
 /**
  *****************************************************************************
  * @brief  Tests the stack commands p, P, C, d and r including error cases and
@@ -21,7 +20,6 @@ int test(void);
  *         replacement for the display module.
  *****************************************************************************/
 int test_stack_functions(void);
- 
+
 #endif /* TEST_H */
-// EOF
- 
+		 // EOF

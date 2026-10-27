@@ -1,7 +1,7 @@
 #ifndef MATH_CALC_H
 #define MATH_CALC_H
 #include <stdint.h>
- 
+
 /**
  *****************************************************************************
  * @brief  Adds the two top entries: result = below + top.
@@ -14,8 +14,8 @@
  * @note   Both operands are removed from the stack, even if an error occurs.
  *         The result is NOT pushed on the stack, the caller (main) does this.
  *****************************************************************************/
-int32_t math_add(int32_t* result);
- 
+enum Status math_add(int32_t *result);
+
 /**
  *****************************************************************************
  * @brief  Subtracts the top entry from the entry below: result = below - top.
@@ -28,8 +28,8 @@ int32_t math_add(int32_t* result);
  * @note   Both operands are removed from the stack, even if an error occurs.
  *         The result is NOT pushed on the stack, the caller (main) does this.
  *****************************************************************************/
-int32_t math_sub(int32_t* result);
- 
+enum Status math_sub(int32_t *result);
+
 /**
  *****************************************************************************
  * @brief  Multiplies the two top entries: result = below * top.
@@ -42,8 +42,8 @@ int32_t math_sub(int32_t* result);
  * @note   Both operands are removed from the stack, even if an error occurs.
  *         The result is NOT pushed on the stack, the caller (main) does this.
  *****************************************************************************/
-int32_t math_mul(int32_t* result);
- 
+enum Status math_mul(int32_t *result);
+
 /**
  *****************************************************************************
  * @brief  Divides the entry below by the top entry (integer division): result =
@@ -58,7 +58,7 @@ int32_t math_mul(int32_t* result);
  * @note   Both operands are removed from the stack, even if an error occurs.
  *         The result is NOT pushed on the stack, the caller (main) does this.
  *****************************************************************************/
-int32_t math_div(int32_t* result);
- 
+enum Status math_div(int32_t *result);
+
 #endif /* MATH_CALC_H */
-// EOF
+		 // EOF

@@ -1,6 +1,7 @@
 #ifndef STACK_FUNCTIONS_H
 #define STACK_FUNCTIONS_H
 
+#include "status.h"
 #include <stdint.h>
 
 /**
@@ -13,15 +14,16 @@
  *         n entries, only the existing entries are printed.
  * @retval CALC_STATUS_STACK_EMPTY Stack is empty, nothing was printed.
  *****************************************************************************/
-int32_t print_from_stack(uint8_t n);
- 
+enum Status print_from_stack(uint8_t n);
+
 /**
  *****************************************************************************
  * @brief  Removes all entries from the stack (command C).
- *         This function cannot fail.
+ *
+ * @retval void
  *****************************************************************************/
-void clearAll(void);
- 
+void clear_all(void);
+
 /**
  *****************************************************************************
  * @brief  Duplicates the top entry (command d).
@@ -31,8 +33,8 @@ void clearAll(void);
  * @retval CALC_STATUS_STACK_FULL No space for the copy, the stack is
  *         unchanged.
  *****************************************************************************/
-int32_t duplicate_top(void);
- 
+enum Status duplicate_top(void);
+
 /**
  *****************************************************************************
  * @brief  Swaps the two top entries (command r).
@@ -41,7 +43,7 @@ int32_t duplicate_top(void);
  * @retval CALC_STATUS_STACK_EMPTY Fewer than two entries, the stack is
  *         unchanged.
  *****************************************************************************/
-int32_t swap_top_two(void);
- 
+enum Status swap_top_two(void);
+
 #endif /* STACK_FUNCTIONS_H */
-// EOF
+		 // EOF

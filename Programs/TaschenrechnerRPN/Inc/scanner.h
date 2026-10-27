@@ -12,7 +12,8 @@
 
 /*
  ****************************************************************************************
- * @brief : This function returns the next token, defined in token.h. If the input is 1 then stdout is cleared, else not
+ * @brief : This function returns the next token, defined in token.h. If the
+ *input is 1 then stdout is cleared, else not
  *
  * @return Next token will be returned. In case of an error the UNEXPTECTED
  * token will be returned.
