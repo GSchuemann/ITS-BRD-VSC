@@ -14,6 +14,7 @@ void print_err(enum Status err) {
 	switch (err) {
 	case CALC_STATUS_DIV_BY_ZERO:
 		print_err_helper("Kann nicht durch 0 teilen!");
+		break;
 	case CALC_STATUS_OVERFLOW:
 		print_err_helper("Es gab einen Overflow!");
 	case CALC_STATUS_STACK_FULL:

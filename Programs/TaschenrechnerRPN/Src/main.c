@@ -84,7 +84,7 @@ int main(void) {
 	TP_Init(false);               // Initialisierung des LCD Boards mit Touch
 #ifdef DEBUG                     // only IN DEBUG BUILD
 	lcdGotoXY(X_CENTER, Y_CENTER);
-	lcdPrintlnS("Tests laufen laufen lassen?");
+	lcdPrintlnS("Tests laufen lassen?");
 	lcdGotoXY(0, Y_BOTTOM);
 	lcdPrintlnS("S7 Weiter");
 	lcdGotoXY(Y_BOTTOM_RIGHT, Y_BOTTOM);
@@ -117,6 +117,7 @@ int main(void) {
 		switch (tok.tok) {
 		case CLEAR:
 			clear_all();
+			status = CALC_STATUS_OK;
 			break;
 		case OVERFLOW:
 			status = CALC_STATUS_OVERFLOW;

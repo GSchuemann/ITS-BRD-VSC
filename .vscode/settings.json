@@ -117,7 +117,7 @@
   "cmake.ignoreCMakeListsMissing": true,
   "C_Cpp_Runner.msvcBatchPath": "",
   "clangd.arguments": [
-    "--compile-commands-dir=/h/media/laufwerk/its/gt/ITS-BRD-VSC/Programs/TaschenrechnerRPN/out/TaschenrechnerRPN/ITSboard/Debug"
+    "--compile-commands-dir=c:\\Users\\DuyTrinh\\Desktop\\GitProjekte\\George\\ITS-BRD-VSC\\Programs\\TaschenrechnerRPN\\out\\TaschenrechnerRPN_Debug\\ITSboard\\Debug"
   ],
   "debug.hideSlowPreLaunchWarning": true,
   "debug.showInStatusBar": "never",

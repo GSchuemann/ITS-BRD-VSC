@@ -6,7 +6,7 @@
             "type": "gdbtarget",
             "request": "launch",
             "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
-            "program": "out/TaschenrechnerRPN/ITSboard/Debug/TaschenrechnerRPN.axf",
+            "program": "out/TaschenrechnerRPN_Debug/ITSboard/Debug/TaschenrechnerRPN_Debug.axf",
             "gdb": "arm-none-eabi-gdb",
             "auxiliaryGdb": true,
             "preLaunchTask": "CMSIS Load",
@@ -45,7 +45,7 @@
             "type": "gdbtarget",
             "request": "attach",
             "cwd": "${workspaceFolder}/Programs/TaschenrechnerRPN",
-            "program": "out/TaschenrechnerRPN/ITSboard/Debug/TaschenrechnerRPN.axf",
+            "program": "out/TaschenrechnerRPN_Debug/ITSboard/Debug/TaschenrechnerRPN_Debug.axf",
             "gdb": "arm-none-eabi-gdb",
             "auxiliaryGdb": true,
             "initCommands": [
