@@ -11,15 +11,22 @@
 
 enum Status print_from_stack(uint8_t n) {
 	int32_t values[n];
+	uint8_t popped = 0;                        
 	for (uint8_t i = 0; i < n; i++) {
 		int32_t status = pop_from_stack(&values[i]);
 		if (status < CALC_STATUS_OK) {
-			return status;
+			break;                              
 		}
+		popped++;                               
 	}
-	for (uint8_t i = 0; i < n; i++) {
+	if (popped == 0) {                          
+		return CALC_STATUS_STACK_EMPTY;
+	}
+	for (uint8_t i = 0; i < popped; i++) {      
 		print_num(values[i]);
-		int32_t status = add_to_stack(values[i]);
+	}
+	for (uint8_t i = popped; i > 0; i--) {      
+		int32_t status = add_to_stack(values[i - 1]);
 		if (status < CALC_STATUS_OK) {
 			return status;
 		}

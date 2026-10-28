@@ -4,7 +4,7 @@
 
 #define ASCII_OFFSET_FOR_NUM '0'
 #define BASE 10
-#define MAX_INT_ASCII_SIZE 6
+#define MAX_INT_ASCII_SIZE 11
 static void print_err_helper(char *msg) {
 	set_err_mode();
 	print_stdout(msg);
@@ -17,9 +17,10 @@ void print_err(enum Status err) {
 		break;
 	case CALC_STATUS_OVERFLOW:
 		print_err_helper("Es gab einen Overflow!");
+		break;
 	case CALC_STATUS_STACK_FULL:
-		print_err_helper(
-			 "Es wurden die maximalen Elemente auf dem Stack überschritten!");
+		print_err_helper( "Es wurden die maximalen Elemente auf dem Stack überschritten!");
+		break;	
 	case CALC_STATUS_STACK_EMPTY:
 		print_err_helper("Es gibt zu wenige Elemente auf dem Stack!");
 		break;
@@ -33,25 +34,28 @@ void print_err(enum Status err) {
 };
 
 void print_num(int32_t num) {
-	char digits[MAX_INT_ASCII_SIZE]; // enough for binary digits of an unsigned
-	                                 // integer
+	char digits[MAX_INT_ASCII_SIZE];
 	// NOLINTBEGIN
 	uint32_t n = 0;
 	// NOLINTEND
-	if (num < 0) {
-		digits[n++] = '-';
-		num *= -1;
+	bool negative = (num < 0);
+	uint32_t abs_value = (uint32_t)num;
+	if (negative) {
+		abs_value = 0U - abs_value;
 	}
-	if (num == 0) {
+	if (abs_value == 0U) {
 		digits[n++] = '0';
 	} else {
-		while (num > 0) {
-			digits[n++] = (char)((num % BASE) + ASCII_OFFSET_FOR_NUM);
-			num /= BASE;
+		while (abs_value > 0U) {
+			digits[n++] = (char)((abs_value % BASE) + ASCII_OFFSET_FOR_NUM);
+			abs_value /= BASE;
 		}
+	}
+	if (negative) {                   
+		digits[n++] = '-';
 	}
 	while (n > 0) {
 		print_to_echo_line(digits[--n]);
-    }
-    print_to_echo_line(' '); //Print space in case multiple numbers are output
+	}
+	print_to_echo_line(' ');
 };

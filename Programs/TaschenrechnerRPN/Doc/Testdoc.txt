@@ -1,0 +1,28 @@
+RPN-Taschenrechner Testdokumentation
+
+Normalverhalten:
+Nr   Eingabe                     Reaktion
+N1   25 8 67 + r / p             3
+N2   5 10 + p                    15
+N3   10 4 - p                    6
+N4   5 10 - p                    -5
+N5   6 7 * p                     42
+N6   7 2 / p                     3
+N7   5 d + p                     10
+N8   1 2 r p                     1
+N9   1 2 3 P                     3 2 1
+N10  1 2 P                       2 1
+
+Fehlerfaelle:
+Nr   Eingabe                     Reaktion
+F1   1 2 3 C p                   Fehler: Stack leer
+F2   5 0 / p                     Fehler: Division durch 0
+F3   2147483647 1 +              Fehler: Overflow
+F4   65536 65536 *               Fehler: Overflow
+F5   0 2147483647 - 1 - p        -2147483648, kein Fehler
+F6   3000000000                  Fehler: Overflow
+F7   +                           Fehler: Stack leer
+F8   5 +                         Fehler: Stack leer
+F9   100 Zahlen eingeben         alle angenommen
+F10  101. Zahl eingeben          Error
+F11  Fehler, dann C, dann 4 p    Meldung weg, Ausgabe 4
