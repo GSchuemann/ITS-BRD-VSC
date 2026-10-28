@@ -46,4 +46,4 @@ enum Status duplicate_top(void);
 enum Status swap_top_two(void);
 
 #endif /* STACK_FUNCTIONS_H */
-		 // EOF
+       // EOF

@@ -61,4 +61,4 @@ enum Status math_mul(int32_t *result);
 enum Status math_div(int32_t *result);
 
 #endif /* MATH_CALC_H */
-		 // EOF
+       // EOF
