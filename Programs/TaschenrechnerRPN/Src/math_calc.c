@@ -5,14 +5,6 @@
 #include <stdint.h>
 #define MINUS_ONE (-1)
 
-static enum Status pop_two(int32_t *top, int32_t *below) {
-   int32_t status = pop_from_stack(top);
-   if (status < CALC_STATUS_OK) {
-      return status;
-   }
-   return pop_from_stack(below);
-}
-
 enum Status math_add(int32_t *result) {
    int32_t num1 = 0;
    int32_t num2 = 0;

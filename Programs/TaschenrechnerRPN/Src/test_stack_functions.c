@@ -46,14 +46,17 @@ int test_stack_functions(void) {
    add_to_stack(2);
    add_to_stack(3);
    clear_stack();
+   status = pop_from_stack(&result);
+   printf("Status: %d (expected: -4)\n", status);
+   printf("Status: %s\n\n",
+          (status == CALC_STATUS_STACK_EMPTY) ? "pass" : "fail");
 
    /* Test: 7 p -> gibt 7 aus, Stack unveraendert */
    printf("Test(p): (7 p) (expected output: 7)\n");
    add_to_stack(7);
-   //    status = print_from_stack(1);
    pop_from_stack(&result);
-   printf("result %d\nstatus %d\n", result, status);
-   printf("status: %s\n\n", (result == 7 && status == 0) ? "pass" : "fail");
+   printf("result %d\n", result);
+   printf("status: %s\n\n", (result == 7) ? "pass" : "fail");
 
    /* Test: 1 2 3 4 P -> gibt 4 3 2 aus, Stack unveraendert */
    printf("Test(P): (1 2 3 4 P) (expected output: 4 3 2)\n");
@@ -61,24 +64,22 @@ int test_stack_functions(void) {
    add_to_stack(2);
    add_to_stack(3);
    add_to_stack(4);
-   //    status = print_from_stack(3);
    pop_from_stack(&result);
    pop_from_stack(&second);
-   printf("result %d\nsecond %d\nstatus %d\n", result, second, status);
-   printf("status: %s\n\n",
-          (result == 4 && second == 3 && status == 0) ? "pass" : "fail");
+   printf("result %d\nsecond %d\n", result, second);
+   printf("status: %s\n\n", (result == 4 && second == 3) ? "pass" : "fail");
    clear_stack();
 
    /* Test: p auf leerem Stack */
    printf("Test(p): empty stack\n");
-   //    status = print_from_stack(1);
+   status = print_from_stack(1);
    printf("Status: %d (expected: -4)\n", status);
    printf("Status: %s\n\n",
           (status == CALC_STATUS_STACK_EMPTY) ? "pass" : "fail");
 
    /* Test: P auf leerem Stack */
    printf("Test(P): empty stack\n");
-   //    status = print_from_stack(3);
+   status = print_from_stack(3);
    printf("Status: %d (expected: -4)\n", status);
    printf("Status: %s\n\n",
           (status == CALC_STATUS_STACK_EMPTY) ? "pass" : "fail");
@@ -130,10 +131,9 @@ int test_stack_functions(void) {
    swap_top_two();
    math_div(&result);
    add_to_stack(result);
-   //    status = print_from_stack(1);
    pop_from_stack(&result);
-   printf("result %d\nstatus %d\n", result, status);
-   printf("status: %s\n\n", (result == 3 && status == 0) ? "pass" : "fail");
+   printf("result %d\n", result);
+   printf("status: %s\n\n", (result == 3) ? "pass" : "fail");
    clear_stack();
 
    return 0;

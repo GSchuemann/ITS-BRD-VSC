@@ -24,4 +24,18 @@ enum Status pop_from_stack(int32_t *ret) {
    return CALC_STATUS_OK;
 }
 
-void clear_stack(void) { stack_pointer = MIN_STACK_POINTER; }
+enum Status pop_two(int32_t *top, int32_t *below) {
+   enum Status status = pop_from_stack(top);
+   if (status < CALC_STATUS_OK) {
+      return status;
+   }
+   status = pop_from_stack(below);
+   if (status < CALC_STATUS_OK) {
+      (void)add_to_stack(*top);
+   }
+   return status;
+}
+
+void clear_stack(void) { 
+   stack_pointer = MIN_STACK_POINTER; 
+}

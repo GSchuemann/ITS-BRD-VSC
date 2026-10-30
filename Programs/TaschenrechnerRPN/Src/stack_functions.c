@@ -55,13 +55,8 @@ enum Status duplicate_top(void) {
 enum Status swap_top_two(void) {
    int32_t top = 0;
    int32_t below = 0;
-   int32_t status = pop_from_stack(&top);
+   enum Status status = pop_two(&top, &below);
    if (status < CALC_STATUS_OK) {
-      return status;
-   }
-   status = pop_from_stack(&below);
-   if (status < CALC_STATUS_OK) {
-      (void)add_to_stack(top);
       return status;
    }
    status = add_to_stack(top);
