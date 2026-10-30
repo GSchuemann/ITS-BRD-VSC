@@ -36,6 +36,4 @@ enum Status pop_two(int32_t *top, int32_t *below) {
    return status;
 }
 
-void clear_stack(void) { 
-   stack_pointer = MIN_STACK_POINTER; 
-}
+void clear_stack(void) { stack_pointer = MIN_STACK_POINTER; }

@@ -36,27 +36,30 @@ void print_err(enum Status err) {
 
 void print_num(int32_t num) {
    char digits[MAX_INT_ASCII_SIZE];
-   // NOLINTBEGIN
-   uint32_t n = 0;
-   // NOLINTEND
+   uint32_t digit_count = 0;
    bool negative = (num < 0);
    uint32_t abs_value = (uint32_t)num;
    if (negative) {
       abs_value = 0U - abs_value;
    }
    if (abs_value == 0U) {
-      digits[n++] = '0';
+      digits[digit_count] = '0';
+      digit_count++;
    } else {
       while (abs_value > 0U) {
-         digits[n++] = (char)((abs_value % BASE) + ASCII_OFFSET_FOR_NUM);
+         uint32_t digit = abs_value % BASE;
+         digits[digit_count] = (char)(digit + ASCII_OFFSET_FOR_NUM);
+         digit_count++;
          abs_value /= BASE;
       }
    }
    if (negative) {
-      digits[n++] = '-';
+      digits[digit_count] = '-';
+      digit_count++;
    }
-   while (n > 0) {
-      print_to_echo_line(digits[--n]);
+   while (digit_count > 0) {
+      digit_count--;
+      print_to_echo_line(digits[digit_count]);
    }
    print_to_echo_line(' ');
-};
+}

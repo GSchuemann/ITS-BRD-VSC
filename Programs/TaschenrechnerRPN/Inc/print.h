@@ -8,13 +8,13 @@
  *
  * @return Returns nothing
  ****************************************************************************************/
-void print_err(enum Status);
+void print_err(enum Status err);
 /*
  ****************************************************************************************
  * @brief : Get's a number and prints it
  *
  * @return Returns nothing
  ****************************************************************************************/
-void print_num(int32_t);
+void print_num(int32_t num);
 #endif
 // EOF

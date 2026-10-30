@@ -4,7 +4,6 @@
 #include "../Inc/stack.h"
 #include "../Inc/status.h"
 #include <stdint.h>
-#include <stdio.h>
 
 #define PRINT_BUFFER_SIZE 16
 #define PRINT_COUNT 3
