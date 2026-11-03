@@ -65,9 +65,6 @@ static enum Status math_helper(T_token tok) {
       return status;
    }
    status = add_to_stack(result);
-   if (status < CALC_STATUS_OK) {
-      return status;
-   }
    return status;
 }
 static uint8_t read_all_buttons(void) {

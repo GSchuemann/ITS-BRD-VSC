@@ -2,8 +2,11 @@
     "targetSet": {
         "Programs/TaschenrechnerRPN/TaschenrechnerRPN": {
             "activeTargetType": "ITSboard"
+        },
+        "Programs/DrehgeberPolling/DrehgeberPolling": {
+            "activeTargetType": "ITSboard"
         }
     },
-    "activeSolution": "../Programs/TaschenrechnerRPN/TaschenrechnerRPN.csolution.yml",
+    "activeSolution": "../Programs/DrehgeberPolling/DrehgeberPolling.csolution.yml",
     "activeTarget": "ITSboard"
 }

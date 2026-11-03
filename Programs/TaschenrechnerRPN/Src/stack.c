@@ -31,7 +31,7 @@ enum Status pop_two(int32_t *top, int32_t *below) {
    }
    status = pop_from_stack(below);
    if (status < CALC_STATUS_OK) {
-      (void)add_to_stack(*top);
+      add_to_stack(*top);
    }
    return status;
 }

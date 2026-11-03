@@ -10,7 +10,7 @@
  *
  * @return Returns Status for adding
  ****************************************************************************************/
-enum Status add_to_stack(int32_t number);
+enum Status add_to_stack(int32_t);
 
 /*
  ****************************************************************************************
@@ -19,7 +19,7 @@ enum Status add_to_stack(int32_t number);
  *
  * @return Returns Status for Popping
  ****************************************************************************************/
-enum Status pop_from_stack(int32_t *ret);
+enum Status pop_from_stack(int32_t*);
 
 /*
  ****************************************************************************************
