@@ -117,7 +117,7 @@
   "cmake.ignoreCMakeListsMissing": true,
   "C_Cpp_Runner.msvcBatchPath": "",
   "clangd.arguments": [
-    "--compile-commands-dir=c:\\Users\\DuyTrinh\\Desktop\\GitProjekte\\George\\ITS-BRD-VSC\\Programs\\DrehgeberPolling\\out\\DrehgeberPolling\\ITSboard\\Debug"
+    "--compile-commands-dir=/media/laufwerk/its/ITS-BRD-VSC/Programs/DrehgeberPolling/out/DrehgeberPolling/ITSboard/Debug"
   ],
   "debug.hideSlowPreLaunchWarning": true,
   "debug.showInStatusBar": "never",

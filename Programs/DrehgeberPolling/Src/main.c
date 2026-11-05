@@ -7,33 +7,30 @@
  */
 /* Includes ------------------------------------------------------------------*/
 
+#include "main.h"
 #include "LCD_GUI.h"
 #include "LCD_Touch.h"
 #include "init.h"
-#include "lcd.h"
-#include "stm32f429xx.h"
-#include "stm32f4xx_hal.h"
+#include "phase_counter.h"
+#include "phases.h"
 #include <stdint.h>
-#include "main.h"
-
+#include "io.h"
 
 static char state[4] = {'A','B','C','D'};
 
-int main(void) {
+
+    int main(void) {
    initITSboard(); // Initialisierung des ITS Boards
 
    GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
    TP_Init(false); // Initialisierung des LCD Boards mit Touch
-
+   enum NextPhase current_phase = INIT;
    // Test in Endlosschleife
-   uint16_t buttons = read_buttons();
-      char q_state = state[buttons & 0b11];
-   while (1) { 
-      buttons = read_buttons();
+   while (1) {
+      read_buttons();
+      current_phase = phase_ops[current_phase]();
+      print_degree();
    }
-}
-uint32_t read_buttons() {
-   return GPIOF->IDR;
 }
 
 // EOF
