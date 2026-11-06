@@ -1,0 +1,15 @@
+#include "LCD_GUI.h"
+#include "LCD_Touch.h"
+#include "display.h"
+#include "init.h"
+#include "main.h"
+
+int main(void) {
+   initITSboard();
+   GUI_init(DEFAULT_BRIGHTNESS);
+   TP_Init(false);
+   init_display();
+   print_values(19.0, 0.0);
+   while (1) {
+   }
+}

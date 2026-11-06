@@ -4,7 +4,7 @@ cmsis-tools-environment:
   solution: ../TaschenrechnerRPN.csolution.yml
   environment:
     path:
-      - c:/Users/DuyTrinh/.vscode/extensions/arm.vscode-cmsis-debugger-1.10.0-win32-x64/tools/pyocd
+      - c:/Users/DuyTrinh/.vscode/extensions/arm.vscode-cmsis-debugger-1.10.1-win32-x64/tools/pyocd
       - c:/Users/DuyTrinh/.vscode/extensions/arm.cmsis-csolution-1.72.0-win32-x64/tools/cmsis-toolbox/bin
       - c:/Users/DuyTrinh/.vcpkg/artifacts/2139c4c6/tools.kitware.cmake/3.28.4/bin
       - c:/Users/DuyTrinh/.vcpkg/artifacts/2139c4c6/tools.ninja.build.ninja/1.13.2
@@ -12,7 +12,7 @@ cmsis-tools-environment:
       - c:/Users/DuyTrinh/.vcpkg/artifacts/2139c4c6/compilers.arm.arm.none.eabi.gcc/13.3.1/bin
       - c:/Users/DuyTrinh/.vcpkg/artifacts/2139c4c6/compilers.arm.llvm.embedded/17.0.1/bin
       - c:/Users/DuyTrinh/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.10.1/bin
-      - c:/Users/DuyTrinh/.vscode/extensions/arm.vscode-cmsis-debugger-1.10.0-win32-x64/tools/gdb/bin
+      - c:/Users/DuyTrinh/.vscode/extensions/arm.vscode-cmsis-debugger-1.10.1-win32-x64/tools/gdb/bin
     variables:
       AC6_TOOLCHAIN_6_24_0: c:/Users/DuyTrinh/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/
       CLANG_TOOLCHAIN_17_0_1: c:/Users/DuyTrinh/.vcpkg/artifacts/2139c4c6/compilers.arm.llvm.embedded/17.0.1/bin/
@@ -23,12 +23,12 @@ cmsis-tools-environment:
       ninja: c:/Users/DuyTrinh/.vcpkg/artifacts/2139c4c6/tools.ninja.build.ninja/1.13.2/ninja.exe
   tools:
     - name: pyOCD
-      version: 0.46.0
+      version: v0.46.1
       origin: built-in
       provider:
         type: vscode-extension
         id: arm.vscode-cmsis-debugger
-      directory: c:/Users/DuyTrinh/.vscode/extensions/arm.vscode-cmsis-debugger-1.10.0-win32-x64/tools/pyocd
+      directory: c:/Users/DuyTrinh/.vscode/extensions/arm.vscode-cmsis-debugger-1.10.1-win32-x64/tools/pyocd
       manual: https://pyocd.io/docs/
     - name: CMSIS-Toolbox
       version: 2.15.0
@@ -86,5 +86,5 @@ cmsis-tools-environment:
       provider:
         type: vscode-extension
         id: arm.vscode-cmsis-debugger
-      directory: c:/Users/DuyTrinh/.vscode/extensions/arm.vscode-cmsis-debugger-1.10.0-win32-x64/tools/gdb/bin
+      directory: c:/Users/DuyTrinh/.vscode/extensions/arm.vscode-cmsis-debugger-1.10.1-win32-x64/tools/gdb/bin
       manual: https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain
