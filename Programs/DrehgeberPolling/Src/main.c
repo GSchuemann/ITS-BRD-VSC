@@ -18,6 +18,7 @@
 #include "io.h"
 #include "stm32f4xx.h"
 #include "timer.h"
+#include "timing.h"
 
 #define COUNTER_LED_MASK 0xFF
 
@@ -30,6 +31,7 @@ static char state[4] = {'A','B','C','D'};
    GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
    TP_Init(false); // Initialisierung des LCD Boards mit Touch
    initTimer();
+   init_display();
    enum NextPhase current_phase = INIT;
    // Test in Endlosschleife
    while (1) {
@@ -42,10 +44,10 @@ static char state[4] = {'A','B','C','D'};
       } else {
          set_err_led(0);
          set_counter_leds((uint8_t)(get_counter() & COUNTER_LED_MASK));
-         set_direction_leds(get_counter());
-         print_degree();
+         set_direction_leds(get_direction());
+          if (update_velocity(get_counter(), get_counter_time())) {
+            print_values(get_angle(), get_velocity());
+         }
       }
    }
 }
-
-// EOF

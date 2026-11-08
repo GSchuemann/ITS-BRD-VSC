@@ -4,12 +4,25 @@
 #include "init.h"
 #include "main.h"
 
+#define WAIT_LOOPS 20000000
+
+static void wait(void) {
+   for (volatile uint32_t i = 0; i < WAIT_LOOPS; i++) {
+   }
+}
+
 int main(void) {
    initITSboard();
    GUI_init(DEFAULT_BRIGHTNESS);
    TP_Init(false);
    init_display();
+
    print_values(19.0, 0.0);
+   wait();
+   print_values(-123.4, 456.7);
+   wait();
+   print_values(9.0, 0.0);
+
    while (1) {
    }
 }
