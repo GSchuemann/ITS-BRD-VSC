@@ -4,6 +4,9 @@
 #include <phases.h>
 #include "phase_counter.h"
 #define BUTTON_S6 6
+#define LED_FORWARD 1U << 7
+#define LED_BACKWARD 1U << 6
+#define LED_ERROR 1U << 5
 
 phase_fn phase_ops[] = {
     phase_a, phase_b, phase_c, phase_d, a_to_b, a_to_d, b_to_a,
@@ -14,7 +17,16 @@ struct Phase {
     uint32_t counter;
     uint64_t timestamp;
 };
-
+static void forward(){
+   add_degree();
+   clr_e_led(LED_BACKWARD);
+   set_e_led(LED_FORWARD);
+}
+static void backward(){
+   sub_degree();
+   clr_e_led(LED_FORWARD);
+   set_e_led(LED_BACKWARD);
+}
 enum NextPhase phase_a() {
     switch (get_buttons() &3) {
         case 0:
@@ -23,7 +35,7 @@ enum NextPhase phase_a() {
             return ATOB;
         case 2:
             return ATOD;
-        default: return ERROR;
+        default: return ERRORPHASE;
     }
 }
 enum NextPhase phase_b() {
@@ -35,7 +47,7 @@ enum NextPhase phase_b() {
    case 0:
       return BTOA;
    default:
-      return ERROR;
+      return ERRORPHASE;
    }
 }
 enum NextPhase phase_c() {
@@ -47,7 +59,7 @@ enum NextPhase phase_c() {
    case 1:
       return CTOB;
    default:
-      return ERROR;
+      return ERRORPHASE;
    }
 }
 
@@ -60,52 +72,57 @@ enum NextPhase phase_d() {
    case 3:
       return DTOC;
    default:
-      return ERROR;
+      return ERRORPHASE;
    }
 }
 enum NextPhase a_to_b() {
-    add_degree();
+   forward();
     return B;
 }
 enum NextPhase a_to_d() {
-    sub_degree();
+    backward();
     return D;
 }
 enum NextPhase b_to_c() {
-    add_degree();
+    forward();
     return C;
 }
 enum NextPhase b_to_a() {
-    sub_degree();
+    backward();
     return A;
 }
 enum NextPhase c_to_b() {
-   sub_degree();
+   backward();
     return B;
 }
 enum NextPhase c_to_d() {
-    add_degree();
+    forward();
     return D;
 }
 enum NextPhase d_to_a() {
-    add_degree();
+    forward();
     return A;
 }
 enum NextPhase d_to_c() {
-    sub_degree();
+    backward();
     return C;
 }
 
 enum NextPhase error() {
+   clr_e_led((LED_FORWARD | LED_BACKWARD));
+   set_e_led(LED_ERROR);
    switch ((get_buttons() >> BUTTON_S6) & 1) {
    case 1:
-      return INIT;
+      return ERRORPHASE;
    default:
-      return ERROR;
+      return INIT;
    }
 }
 
 enum NextPhase init() {
+   clr_e_led(LED_ERROR);
+   clr_d_led(0xFF);
+
     //TODO Clear display
     //TODO Reset other stuff to 0
     switch (get_buttons() & 3) {
@@ -118,6 +135,6 @@ enum NextPhase init() {
     case 2:
        return D;
     default:
-       return ERROR;
+       return ERRORPHASE;
     }
 }

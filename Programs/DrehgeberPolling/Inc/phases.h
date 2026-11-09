@@ -29,7 +29,7 @@ enum NextPhase {
     CTOD,
     DTOC,
     DTOA,
-    ERROR,
+    ERRORPHASE,
     INIT,
 };
 typedef  enum NextPhase (*phase_fn)(void);

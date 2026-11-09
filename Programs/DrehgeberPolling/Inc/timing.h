@@ -2,6 +2,7 @@
 #define TIMING_H
 
 #include <stdint.h>
+#define TICKS_PER_SECOND 90000000U
 
 void update_time(void);
 uint64_t get_time(void);

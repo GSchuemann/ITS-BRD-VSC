@@ -2,7 +2,6 @@
 #include "stm32f4xx.h"
 
 #define TIMER_CNT (TIM2->CNT)
-#define TICKS_PER_SECOND 90000000ULL
 #define WINDOW_300MS (TICKS_PER_SECOND * 3 / 10)
 #define WINDOW_3S (TICKS_PER_SECOND * 3)
 #define DEGREE_PER_PHASE 0.3

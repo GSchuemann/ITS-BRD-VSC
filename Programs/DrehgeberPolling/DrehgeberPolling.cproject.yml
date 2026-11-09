@@ -188,6 +188,7 @@ project:
         - file: Inc/phase_counter.h
         - file: Inc/phases.h
         - file: Inc/display.h
+        - file: Inc/timing.h
 
     # Benutzerdefinierte Programmdateien
     - group: Program/User/Src
@@ -197,6 +198,7 @@ project:
         - file: Src/phase_counter.c
         - file: Src/phases.c
         - file: Src/display.c
+        - file: Src/timing.c
 
   components:
     - component: ARM::CMSIS:CORE
