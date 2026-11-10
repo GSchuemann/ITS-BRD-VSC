@@ -1,44 +1,48 @@
-#include <stdint.h>
-
-#include "io.h"
-#include <phases.h>
-#include "phase_counter.h"
+/**
+ ******************************************************************************
+ * @file    phases.c
+ * @author  Xuan Hoang Duy Trinh, Georg Schümann
+ * @brief   Implementierung der States
+ ******************************************************************************
+ */
+/* Includes ------------------------------------------------------------------*/
 #include "display.h"
-#include "timing.h"
+#include "io.h"
+#include "phase_counter.h"
+#include <phases.h>
 #define BUTTON_S6 6
 #define LED_FORWARD 1U << 7
 #define LED_BACKWARD 1U << 6
 #define LED_ERROR 1U << 5
-#define EIGHT_BIT  0xFF
+#define EIGHT_BIT 0xFF
 phase_fn phase_ops[] = {
     phase_a, phase_b, phase_c, phase_d, a_to_b, a_to_d, b_to_a,
     b_to_c,  c_to_b,  c_to_d,  d_to_c,  d_to_a, error,  init,
 };
 
-static void forward(){
+static void forward() {
    add_degree();
    clr_e_led(LED_BACKWARD);
    set_e_led(LED_FORWARD);
 }
-static void backward(){
+static void backward() {
    sub_degree();
    clr_e_led(LED_FORWARD);
    set_e_led(LED_BACKWARD);
 }
-static void output_vals(){
-   print_values();
-}
+static void output_vals() { print_values(); }
 enum NextPhase phase_a() {
-   switch (get_buttons() &3) {
-        case 0:
-            output_vals();
-            return  A;
-        case 2:
-            return ATOB;
-        case 1:
-            return ATOD;
-        default: return ERRORPHASE;
-    }
+   switch (get_buttons() & 3) {
+   case 0:
+      output_vals();
+      return A;
+   case 2:
+      return ATOB;
+   case 1:
+      return ATOD;
+   default:
+      return ERRORPHASE;
+   }
 }
 enum NextPhase phase_b() {
    output_vals();
@@ -82,35 +86,35 @@ enum NextPhase phase_d() {
 }
 enum NextPhase a_to_b() {
    forward();
-    return B;
+   return B;
 }
 enum NextPhase a_to_d() {
-    backward();
-    return D;
+   backward();
+   return D;
 }
 enum NextPhase b_to_c() {
-    forward();
-    return C;
+   forward();
+   return C;
 }
 enum NextPhase b_to_a() {
-    backward();
-    return A;
+   backward();
+   return A;
 }
 enum NextPhase c_to_b() {
    backward();
-    return B;
+   return B;
 }
 enum NextPhase c_to_d() {
-    forward();
-    return D;
+   forward();
+   return D;
 }
 enum NextPhase d_to_a() {
-    forward();
-    return A;
+   forward();
+   return A;
 }
 enum NextPhase d_to_c() {
-    backward();
-    return C;
+   backward();
+   return C;
 }
 
 enum NextPhase error() {
@@ -130,16 +134,16 @@ enum NextPhase init() {
    reset_degree();
    reset_velocity();
    output_vals();
-    switch (get_buttons() & 3) {
-    case 0:
-       return A;
-    case 2:
-       return B;
-    case 3:
-       return C;
-    case 1:
-       return D;
-    default:
-       return ERRORPHASE;
-    }
+   switch (get_buttons() & 3) {
+   case 0:
+      return A;
+   case 2:
+      return B;
+   case 3:
+      return C;
+   case 1:
+      return D;
+   default:
+      return ERRORPHASE;
+   }
 }

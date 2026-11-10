@@ -1,8 +1,10 @@
 /**
  ******************************************************************************
  * @file    main.c
- * @author  Franz Korf
- * @brief   Kleines Testprogramm fuer neu erstelle Fonts.
+ * @author  Xuan Hoang Duy Trinh, Georg Schümann
+ * @brief   Programm was den angeschlossenen Drehgeber ausliest und Winkel sowie
+ Geschwindigkeit anzeigt. Dafür läuft eine Superloop, die am Anfange Knöpfe und
+ Zeit liest und danach in einen State reingeht.
  ******************************************************************************
  */
 /* Includes ------------------------------------------------------------------*/
@@ -12,20 +14,16 @@
 #include "LCD_Touch.h"
 #include "display.h"
 #include "init.h"
-#include "phases.h"
 #include "io.h"
-#include "stm32f4xx.h"
+#include "phases.h"
 #include "timer.h"
 #include "timing.h"
 
-#define COUNTER_LED_MASK 0xFF
-
-
-   int main(void) {
+int main(void) {
    initITSboard(); // Initialisierung des ITS Boards
 
    GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
-   TP_Init(false); // Initialisierung des LCD Boards mit Touch
+   TP_Init(false);               // Initialisierung des LCD Boards mit Touch
    initTimer();
    init_display();
    enum NextPhase current_phase = INIT;

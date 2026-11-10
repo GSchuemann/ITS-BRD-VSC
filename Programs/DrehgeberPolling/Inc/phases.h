@@ -1,39 +1,136 @@
 #include <stdint.h>
 #ifndef phases
-#define  phases
+#define phases
+/*
+ ****************************************************************************************
+ *  @brief      Outputs degrees and velocity on display, reads buttons for the
+ *next Phase
+ * *
+ *  @return     Next Phase
+ ****************************************************************************************/
 enum NextPhase phase_a(void);
+/*
+ ****************************************************************************************
+ *  @brief      Outputs degrees and velocity on display, reads buttons for the
+ *next Phase
+ * *
+ *  @return     Next Phase
+ ****************************************************************************************/
 enum NextPhase phase_b(void);
+/*
+ ****************************************************************************************
+ *  @brief      Outputs degrees and velocity on display, reads buttons for the
+ *next Phase
+ * *
+ *  @return     Next Phase
+ ****************************************************************************************/
 enum NextPhase phase_c(void);
+/*
+ ****************************************************************************************
+ *  @brief      Outputs degrees and velocity on display, reads buttons for the
+ *next Phase
+ * *
+ *  @return     Next Phase
+ ****************************************************************************************/
 enum NextPhase phase_d(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets direction to forward
+ * *
+ *  @return     Phase B
+ ****************************************************************************************/
 enum NextPhase a_to_b(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets direction to backward
+ * *
+ *  @return     Phase D
+ ****************************************************************************************/
 enum NextPhase a_to_d(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets direction to forward
+ * *
+ *  @return     Phase C
+ ****************************************************************************************/
 enum NextPhase b_to_c(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets direction to backward
+ * *
+ *  @return     Phase A
+ ****************************************************************************************/
 enum NextPhase b_to_a(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets direction to backward
+ * *
+ *  @return     Phase B
+ ****************************************************************************************/
 enum NextPhase c_to_b(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets direction to forward
+ * *
+ *  @return     Phase D
+ ****************************************************************************************/
 enum NextPhase c_to_d(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets direction to forward
+ * *
+ *  @return     Phase A
+ ****************************************************************************************/
 enum NextPhase d_to_a(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets direction to backward
+ * *
+ *  @return     Phase C
+ ****************************************************************************************/
 enum NextPhase d_to_c(void);
+/*
+ ****************************************************************************************
+ *  @brief      Waits for Button S6, also sets Error LED and clears the other 2
+ * *
+ *  @return     Phase INIT
+ ****************************************************************************************/
 enum NextPhase error(void);
+/*
+ ****************************************************************************************
+ *  @brief      Sets degree, velocity to 0
+ * *
+ *  @return     NextPhase
+ ****************************************************************************************/
 enum NextPhase init(void);
-
+/*
+ ****************************************************************************************
+ *  @brief      Enum Defition for NextPhase
+ * *
+ ****************************************************************************************/
 enum NextPhase {
-    A,
-    B,
-    C,
-    D,
-    ATOB,
-    ATOD,
-    BTOA,
-    BTOC,
-    CTOB,
-    CTOD,
-    DTOC,
-    DTOA,
-    ERRORPHASE,
-    INIT,
+   A,
+   B,
+   C,
+   D,
+   ATOB,
+   ATOD,
+   BTOA,
+   BTOC,
+   CTOB,
+   CTOD,
+   DTOC,
+   DTOA,
+   ERRORPHASE,
+   INIT,
 };
-typedef  enum NextPhase (*phase_fn)(void);
+/*
+ ****************************************************************************************
+ *  @brief      Executes the next phase from a function poiter
+ * *
+ *  @return     NextPhase
+ ****************************************************************************************/
+typedef enum NextPhase (*phase_fn)(void);
 extern phase_fn phase_ops[];
-
 
 #endif

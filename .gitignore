@@ -23,5 +23,10 @@ __pycache__/
 .AppleDouble
 .LSOverride
 
-# EOF
+### Doxygen ####
+# Drehgeber
+Programs/DrehgeberPolling/Doc/html/
+Programs/DrehgeberPolling/Doc/latex/
 
+
+# EOF
