@@ -23,8 +23,6 @@
 
 #define COUNTER_LED_MASK 0xFF
 
-static char state[4] = {'A','B','C','D'};
-
 
    int main(void) {
    initITSboard(); // Initialisierung des ITS Boards
@@ -39,10 +37,5 @@ static char state[4] = {'A','B','C','D'};
       read_buttons();
       update_time();
       current_phase = phase_ops[current_phase]();
-      print_degree();
-      print_speed();
-      // if (update_velocity(get_counter(), get_counter_time())) {
-      //       print_values(get_angle(), get_velocity());
-      //    }
    }
 }

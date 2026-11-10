@@ -3,6 +3,8 @@
 #include "io.h"
 #include <phases.h>
 #include "phase_counter.h"
+#include "display.h"
+#include "timing.h"
 #define BUTTON_S6 6
 #define LED_FORWARD 1U << 7
 #define LED_BACKWARD 1U << 6
@@ -27,8 +29,12 @@ static void backward(){
    clr_e_led(LED_FORWARD);
    set_e_led(LED_BACKWARD);
 }
+static void output_vals(){
+   print_values(get_degree(),get_speed());
+}
 enum NextPhase phase_a() {
-    switch (get_buttons() &3) {
+   output_vals();
+   switch (get_buttons() &3) {
         case 0:
             return  A;
         case 1:
@@ -39,6 +45,7 @@ enum NextPhase phase_a() {
     }
 }
 enum NextPhase phase_b() {
+   output_vals();
    switch (get_buttons() & 3) {
    case 1:
       return B;
@@ -51,6 +58,7 @@ enum NextPhase phase_b() {
    }
 }
 enum NextPhase phase_c() {
+   output_vals();
    switch (get_buttons() & 3) {
    case 3:
       return C;
@@ -64,6 +72,7 @@ enum NextPhase phase_c() {
 }
 
 enum NextPhase phase_d() {
+   output_vals();
    switch (get_buttons() & 3) {
    case 2:
       return D;
@@ -122,9 +131,9 @@ enum NextPhase error() {
 enum NextPhase init() {
    clr_e_led(LED_ERROR);
    clr_d_led(0xFF);
-
-    //TODO Clear display
-    //TODO Reset other stuff to 0
+   reset_degree();
+   reset_velocity();
+   output_vals();
     switch (get_buttons() & 3) {
     case 0:
        return A;

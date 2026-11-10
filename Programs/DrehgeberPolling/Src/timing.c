@@ -2,7 +2,6 @@
 #include "stm32f4xx.h"
 
 #define TIMER_CNT (TIM2->CNT)
-#define WINDOW_300MS (TICKS_PER_SECOND * 3 / 10)
 #define WINDOW_3S (TICKS_PER_SECOND * 3)
 #define DEGREE_PER_PHASE 0.3
 
@@ -16,7 +15,7 @@ static double velocity = 0.0;
 
 void update_time(void) {
    uint32_t now = TIMER_CNT;
-   total_time = total_time + (uint32_t)(now - last_cnt);
+   total_time = total_time + (now - last_cnt);
    last_cnt = now;
 }
 
