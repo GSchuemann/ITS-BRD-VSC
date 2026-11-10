@@ -2,6 +2,6 @@
 #define DISPLAY_H
 
 void init_display(void);
-void print_values(double angle, double velocity);
+void print_values(void);
 
 #endif

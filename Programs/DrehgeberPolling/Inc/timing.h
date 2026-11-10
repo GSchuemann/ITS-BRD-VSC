@@ -3,7 +3,8 @@
 
 #include <stdint.h>
 #define TICKS_PER_SECOND 90000000U
-#define WINDOW_300MS (TICKS_PER_SECOND / 2)
+#define WINDOW_300MS (((double) TICKS_PER_SECOND  / 3.333))
+#define WINDOW_3S (TICKS_PER_SECOND * 3ULL)
 
 void update_time(void);
 uint64_t get_time(void);

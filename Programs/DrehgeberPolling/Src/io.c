@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "io.h"
 #define  USED_LEDS 0b111 << 5
+#define  OFF_OFFSET 16
 static uint32_t buttons;
 void read_buttons() {
     buttons = GPIOF->IDR; }
@@ -11,16 +12,15 @@ uint32_t get_buttons() {
 }
 
 void clr_e_led(uint32_t leds) {
-    GPIOE -> BSRR = leds << 16;
+    GPIOE -> BSRR = leds << OFF_OFFSET;
 }
 void clr_d_led(uint32_t leds) {
-    GPIOD -> BSRR = leds << 16;
+    GPIOD -> BSRR = leds << OFF_OFFSET;
 }
 
 void set_e_led(uint32_t leds) {
     GPIOE -> BSRR = leds;
 } 
-
 
 void set_d_led(uint32_t leds) {
     GPIOD -> BSRR = leds;

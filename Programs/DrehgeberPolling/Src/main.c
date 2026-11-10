@@ -12,10 +12,7 @@
 #include "LCD_Touch.h"
 #include "display.h"
 #include "init.h"
-#include "phase_counter.h"
 #include "phases.h"
-#include <stdint.h>
-#include <stdio.h>
 #include "io.h"
 #include "stm32f4xx.h"
 #include "timer.h"
@@ -32,7 +29,6 @@
    initTimer();
    init_display();
    enum NextPhase current_phase = INIT;
-   // Test in Endlosschleife
    while (1) {
       read_buttons();
       update_time();

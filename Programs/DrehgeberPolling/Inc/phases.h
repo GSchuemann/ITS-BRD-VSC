@@ -35,6 +35,5 @@ enum NextPhase {
 typedef  enum NextPhase (*phase_fn)(void);
 extern phase_fn phase_ops[];
 
-double get_degree(void);
-double get_speed(void);
+
 #endif
