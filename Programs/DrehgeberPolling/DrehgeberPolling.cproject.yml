@@ -90,7 +90,6 @@ project:
     - group: Doc
       files:
         - file: README.md
-        - file: mains.txt
 
     # BSP-Treiber für STM32F4xx Nucleo 144 Board
     - group: Drivers/BSP/STM32F4xx_Nucleo_144

@@ -20,23 +20,32 @@ static int32_t counter;
 static double degree_counter;
 static uint64_t last_timestamp = 0;
 static uint32_t velocity_diff = 0;
+static int direction = 0;
 
 void reset_degree() {
    degree_counter = 0.0;
    counter = 0;
+   direction = 0;
 }
 void add_degree() {
    degree_counter += PHASE_SHIFT_CONST;
    velocity_diff = get_time() - last_timestamp;
    last_timestamp = get_time();
-   set_d_led(++counter & EIGHT_BIT);
-   printf("%d\r\n", counter);
+   direction = 1;
+   counter++;
+   clr_d_led(EIGHT_BIT);
+   set_d_led((uint32_t)counter & EIGHT_BIT);
+   // set_d_led(++counter & EIGHT_BIT);
+   // printf("%d\r\n", counter);
 }
 void sub_degree() {
    degree_counter -= PHASE_SHIFT_CONST;
    velocity_diff = get_time() - last_timestamp;
    last_timestamp = get_time();
-   clr_d_led(~(--counter));
+   direction = -1;
+   counter--;
+   clr_d_led(EIGHT_BIT);
+   set_d_led((uint32_t)counter & EIGHT_BIT);
    // set_d_led(--counter & EIGHT_BIT);
 }
 void reset_velocity(void) { velocity_diff = 0; }
@@ -45,7 +54,9 @@ double get_velocity() {
    if (get_time() - last_timestamp > WINDOW_3S) {
       return 0.00;
    }
-   double fraction =
-       (((double)velocity_diff / (double)TICKS_PER_SECOND) * THIRD_OF_SECOND);
-   return fraction == 0 ? 0.0 : (double)1 / (fraction);
+   if (velocity_diff == 0) {
+      return 0.00;
+   }
+   double fraction = (double)velocity_diff / (double)TICKS_PER_SECOND;
+   return direction * PHASE_SHIFT_CONST / fraction;
 }
