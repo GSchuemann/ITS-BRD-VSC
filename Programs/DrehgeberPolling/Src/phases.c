@@ -37,9 +37,9 @@ enum NextPhase phase_a() {
       output_vals();
       return A;
    case 2:
-      return ATOB;
+      return a_to_b();
    case 1:
-      return ATOD;
+      return a_to_d();
    default:
       return ERRORPHASE;
    }
@@ -50,9 +50,9 @@ enum NextPhase phase_b() {
    case 2:
       return B;
    case 3:
-      return BTOC;
+      return b_to_c();
    case 0:
-      return BTOA;
+      return b_to_a();
    default:
       return ERRORPHASE;
    }
@@ -63,9 +63,9 @@ enum NextPhase phase_c() {
    case 3:
       return C;
    case 1:
-      return CTOD;
+      return c_to_d();
    case 2:
-      return CTOB;
+      return c_to_b();
    default:
       return ERRORPHASE;
    }
@@ -77,9 +77,9 @@ enum NextPhase phase_d() {
    case 1:
       return D;
    case 0:
-      return DTOA;
+      return d_to_a();
    case 3:
-      return DTOC;
+      return d_to_c();
    default:
       return ERRORPHASE;
    }
