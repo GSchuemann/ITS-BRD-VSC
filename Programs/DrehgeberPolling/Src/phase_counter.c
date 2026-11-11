@@ -33,7 +33,6 @@ void add_degree() {
    last_timestamp = get_time();
    direction = 1;
    counter++;
-   clr_d_led(EIGHT_BIT);
    set_d_led((uint32_t)counter & EIGHT_BIT);
    // set_d_led(++counter & EIGHT_BIT);
    // printf("%d\r\n", counter);
@@ -44,8 +43,7 @@ void sub_degree() {
    last_timestamp = get_time();
    direction = -1;
    counter--;
-   clr_d_led(EIGHT_BIT);
-   set_d_led((uint32_t)counter & EIGHT_BIT);
+   clr_d_led(~(uint32_t)counter);
    // set_d_led(--counter & EIGHT_BIT);
 }
 void reset_velocity(void) { velocity_diff = 0; }
