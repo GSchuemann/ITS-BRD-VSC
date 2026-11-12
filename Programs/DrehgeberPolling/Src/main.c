@@ -16,8 +16,11 @@
 #include "init.h"
 #include "io.h"
 #include "phases.h"
+#include "stm32f4xx_hal.h"
 #include "timer.h"
 #include "timing.h"
+#include <stdint.h>
+#define OFF_OFFSET 16
 
 int main(void) {
    initITSboard(); // Initialisierung des ITS Boards
@@ -26,10 +29,14 @@ int main(void) {
    TP_Init(false);               // Initialisierung des LCD Boards mit Touch
    initTimer();
    init_display();
+   uint32_t buttons;
    enum NextPhase current_phase = INIT;
    while (1) {
-      read_buttons();
+      set_e_led(1U<<4);
+      buttons = read_buttons();
       update_time();
-      current_phase = phase_ops[current_phase]();
+      current_phase = phase_ops[current_phase](buttons);
+      clr_e_led((1U << 4));
+
    }
 }

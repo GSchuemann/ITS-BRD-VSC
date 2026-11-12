@@ -10,6 +10,7 @@
 #include "io.h"
 #include "phase_counter.h"
 #include <phases.h>
+#include <stdint.h>
 #define BUTTON_S6 6
 #define LED_FORWARD 1U << 7
 #define LED_BACKWARD 1U << 6
@@ -30,8 +31,8 @@ static void backward() {
    set_e_led(LED_BACKWARD);
 }
 static void output_vals() { print_values(); }
-enum NextPhase phase_a() {
-   switch (get_buttons() & 3) {
+enum NextPhase phase_a(uint32_t buttons) {
+   switch (buttons & 3) {
    case 0:
       output_vals();
       return A;
@@ -43,9 +44,9 @@ enum NextPhase phase_a() {
       return ERRORPHASE;
    }
 }
-enum NextPhase phase_b() {
+enum NextPhase phase_b(uint32_t buttons) {
    output_vals();
-   switch (get_buttons() & 3) {
+   switch (buttons & 3) {
    case 2:
       return B;
    case 3:
@@ -56,9 +57,9 @@ enum NextPhase phase_b() {
       return ERRORPHASE;
    }
 }
-enum NextPhase phase_c() {
+enum NextPhase phase_c(uint32_t buttons) {
    output_vals();
-   switch (get_buttons() & 3) {
+   switch (buttons & 3) {
    case 3:
       return C;
    case 1:
@@ -70,9 +71,9 @@ enum NextPhase phase_c() {
    }
 }
 
-enum NextPhase phase_d() {
+enum NextPhase phase_d(uint32_t buttons) {
    output_vals();
-   switch (get_buttons() & 3) {
+   switch (buttons & 3) {
    case 1:
       return D;
    case 0:
@@ -116,10 +117,10 @@ enum NextPhase d_to_c() {
    return C;
 }
 
-enum NextPhase error() {
+enum NextPhase error(uint32_t buttons) {
    clr_e_led((LED_FORWARD | LED_BACKWARD));
    set_e_led(LED_ERROR);
-   switch ((get_buttons() >> BUTTON_S6) & 1) {
+   switch ((buttons >> BUTTON_S6) & 1) {
    case 1:
       return ERRORPHASE;
    default:
@@ -127,13 +128,13 @@ enum NextPhase error() {
    }
 }
 
-enum NextPhase init() {
+enum NextPhase init(uint32_t buttons) {
    clr_e_led(LED_ERROR);
    clr_d_led(EIGHT_BIT);
    reset_degree();
    reset_velocity();
    output_vals();
-   switch (get_buttons() & 3) {
+   switch (buttons & 3) {
    case 0:
       return A;
    case 2:

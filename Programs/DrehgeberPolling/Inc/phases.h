@@ -8,7 +8,7 @@
  * *
  *  @return     Next Phase
  ****************************************************************************************/
-enum NextPhase phase_a(void);
+enum NextPhase phase_a(uint32_t);
 /*
  ****************************************************************************************
  *  @brief      Outputs degrees and velocity on display, reads buttons for the
@@ -16,7 +16,7 @@ enum NextPhase phase_a(void);
  * *
  *  @return     Next Phase
  ****************************************************************************************/
-enum NextPhase phase_b(void);
+enum NextPhase phase_b(uint32_t);
 /*
  ****************************************************************************************
  *  @brief      Outputs degrees and velocity on display, reads buttons for the
@@ -24,7 +24,7 @@ enum NextPhase phase_b(void);
  * *
  *  @return     Next Phase
  ****************************************************************************************/
-enum NextPhase phase_c(void);
+enum NextPhase phase_c(uint32_t);
 /*
  ****************************************************************************************
  *  @brief      Outputs degrees and velocity on display, reads buttons for the
@@ -32,7 +32,7 @@ enum NextPhase phase_c(void);
  * *
  *  @return     Next Phase
  ****************************************************************************************/
-enum NextPhase phase_d(void);
+enum NextPhase phase_d(uint32_t);
 /*
  ****************************************************************************************
  *  @brief      Sets direction to forward
@@ -95,14 +95,14 @@ enum NextPhase d_to_c(void);
  * *
  *  @return     Phase INIT
  ****************************************************************************************/
-enum NextPhase error(void);
+enum NextPhase error(uint32_t);
 /*
  ****************************************************************************************
  *  @brief      Sets degree, velocity to 0
  * *
  *  @return     NextPhase
  ****************************************************************************************/
-enum NextPhase init(void);
+enum NextPhase init(uint32_t);
 /*
  ****************************************************************************************
  *  @brief      Enum Defition for NextPhase
@@ -122,7 +122,7 @@ enum NextPhase {
  * *
  *  @return     NextPhase
  ****************************************************************************************/
-typedef enum NextPhase (*phase_fn)(void);
+typedef enum NextPhase (*phase_fn)(uint32_t buttons);
 extern phase_fn phase_ops[];
 
 #endif

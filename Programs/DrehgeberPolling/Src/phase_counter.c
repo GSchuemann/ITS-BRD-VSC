@@ -14,6 +14,7 @@
 #define PHASE_SHIFT_CONST (0.3)
 #define THIRD_OF_SECOND (3.333)
 #define EIGHT_BIT (0xFF)
+#define OFF_OFFSET 16
 
 static int32_t counter;
 static double degree_counter;
@@ -42,7 +43,7 @@ void sub_degree() {
    last_timestamp = get_time();
    direction = -1;
    counter--;
-   if(counter >= 0){
+   if(counter >= 0 && counter <= UINT8_MAX){
       clr_d_led(~(uint32_t)counter);
       set_d_led((uint32_t)counter & EIGHT_BIT);
    }
