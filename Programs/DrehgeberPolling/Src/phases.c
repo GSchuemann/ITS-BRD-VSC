@@ -16,8 +16,7 @@
 #define LED_ERROR 1U << 5
 #define EIGHT_BIT 0xFF
 phase_fn phase_ops[] = {
-    phase_a, phase_b, phase_c, phase_d, a_to_b, a_to_d, b_to_a,
-    b_to_c,  c_to_b,  c_to_d,  d_to_c,  d_to_a, error,  init,
+   init,phase_a, phase_b, phase_c, phase_d, error, 
 };
 
 static void forward() {

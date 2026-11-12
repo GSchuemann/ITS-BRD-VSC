@@ -11,7 +11,6 @@
 #include "io.h"
 #include "timing.h"
 #include <stdint.h>
-#include <stdio.h>
 #define PHASE_SHIFT_CONST (0.3)
 #define THIRD_OF_SECOND (3.333)
 #define EIGHT_BIT (0xFF)
@@ -33,9 +32,9 @@ void add_degree() {
    last_timestamp = get_time();
    direction = 1;
    counter++;
-   set_d_led((uint32_t)counter & EIGHT_BIT);
-   // set_d_led(++counter & EIGHT_BIT);
-   // printf("%d\r\n", counter);
+   if(counter > 0) {
+      set_d_led((uint32_t)counter & EIGHT_BIT);
+   }
 }
 void sub_degree() {
    degree_counter -= PHASE_SHIFT_CONST;
@@ -43,8 +42,10 @@ void sub_degree() {
    last_timestamp = get_time();
    direction = -1;
    counter--;
-   clr_d_led(~(uint32_t)counter);
-   // set_d_led(--counter & EIGHT_BIT);
+   if(counter >= 0){
+      clr_d_led(~(uint32_t)counter);
+      set_d_led((uint32_t)counter & EIGHT_BIT);
+   }
 }
 void reset_velocity(void) { velocity_diff = 0; }
 double get_degree() { return degree_counter; }
