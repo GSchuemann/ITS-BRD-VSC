@@ -19,7 +19,9 @@
  *
  ******************************************************************************
  */
-
+#include "BMP_types.h"
+#include "headers.h"
+#include "palette.h"
 #include "LCD_GUI.h"
 #include "LCD_Touch.h"
 #include "error.h"
@@ -29,7 +31,29 @@
 #include "init.h"
 #include "input.h"        /* ask_transport, init_input */
 #include "usb_clock_config.h"
+#include <stdio.h>
 #include <timer.h>
+
+
+#define LINE_BUF_SIZE 48
+
+/* Test */
+static void show_palette_info(void) {
+   BITMAPINFOHEADER info_hdr;
+   char buf[LINE_BUF_SIZE];
+
+   if (EOK != get_info_hdr(&info_hdr)) {
+      return;
+   }
+   GUI_clear(WHITE);
+   lcdGotoXY(1, 1);
+   snprintf(buf, sizeof(buf) / sizeof(buf[0]), "Palette: %d Eintraege",
+            palette_entry_count(&info_hdr));
+   lcdPrintS(buf);
+}
+
+
+
 
 /**
  * @brief  Main program
@@ -63,6 +87,9 @@ int main(void) {
          /* Fehler wurde bereits im Error-Handler auf dem LCD gemeldet und
             die laufende Operation abgebrochen; Meldung stehen lassen, erst
             S5 (PF5) fordert die naechste Datei an. */
+         wait_for_s_i(BUTTON_S5);
+      }else{
+         show_palette_info();
          wait_for_s_i(BUTTON_S5);
       }
    }

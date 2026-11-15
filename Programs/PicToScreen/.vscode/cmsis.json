@@ -1,0 +1,9 @@
+{
+    "targetSet": {
+        "PicToScreen": {
+            "activeTargetType": "ITSboard"
+        }
+    },
+    "activeSolution": "../PicToScreen.csolution.yml",
+    "activeTarget": "ITSboard"
+}

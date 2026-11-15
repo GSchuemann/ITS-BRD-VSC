@@ -211,6 +211,7 @@ project:
         - file: Inc/usbd_conf.h
         - file: Inc/usbd_desc.h
         - file: Inc/usb_device.h
+        - file: Src/palette.h
 
     # Benutzerdefinierte Programmdateien
     - group: Program/User/Src
@@ -229,6 +230,7 @@ project:
         - file: Src/usbd_conf.c
         - file: Src/usbd_desc.c
         - file: Src/usb_device.c
+        - file: Src/palette.c
 
   components:
     - component: ARM::CMSIS:CORE
