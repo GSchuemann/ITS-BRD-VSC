@@ -1,7 +1,7 @@
 /**
  ******************************************************************************
  * @file    main.c  --  Starthilfe zur BITMAP-Uebung
- * @brief   Rahmenprogramm, das den Studierenden als Starthilfe uebergeben wird. 
+ * @brief   Rahmenprogramm, das den Studierenden als Starthilfe uebergeben wird.
  *
  *          Diese Version leistet bereits:
  *            1. Transport waehlen (S7/PF7 = USB-CDC, S6/PF6 = UART-via-USB)
@@ -10,7 +10,7 @@
  *               erste Bild uebertragen wird
  *            2. BITMAP-Header der naechsten Datei einlesen, pruefen und die
  *               Infos auf dem LCD-Display ausgeben: input_file_header()
- *               aus fileHeader.c 
+ *               aus fileHeader.c
  *            3. danach wird per Tastendruck S5 (PF5) das naechste Bild
  *               angefordert -- das Warten auf S5 passiert in
  *               input_file_header() (wait_for_s_i(5)), ein Tastendruck
@@ -20,20 +20,21 @@
  ******************************************************************************
  */
 #include "BMP_types.h"
-#include "headers.h"
-#include "palette.h"
 #include "LCD_GUI.h"
 #include "LCD_Touch.h"
 #include "error.h"
 #include "errorhandler.h" /* EOK */
 #include "fileHeader.h"   /* input_file_header */
 #include "fontsFLASH.h"
+#include "headers.h"
 #include "init.h"
-#include "input.h"        /* ask_transport, init_input */
+#include "input.h" /* ask_transport, init_input */
+#include "lcd.h"
+#include "palette.h"
 #include "usb_clock_config.h"
 #include <stdio.h>
 #include <timer.h>
-
+#include "rgb565.h"
 
 #define LINE_BUF_SIZE 48
 
@@ -41,6 +42,7 @@
 static void show_palette_info(void) {
    BITMAPINFOHEADER info_hdr;
    char buf[LINE_BUF_SIZE];
+   uint16_t color;
 
    if (EOK != get_info_hdr(&info_hdr)) {
       return;
@@ -50,6 +52,28 @@ static void show_palette_info(void) {
    snprintf(buf, sizeof(buf) / sizeof(buf[0]), "Palette: %d Eintraege",
             palette_entry_count(&info_hdr));
    lcdPrintS(buf);
+   wait_for_s_i(BUTTON_S5);
+
+   if (EOK != palette_read(&info_hdr)) {
+      return;
+   }
+   for (uint8_t i = 0; (i < 4) && (i < palette_entry_count(&info_hdr)); i++) {
+      if (EOK == palette_get_color(i, &color)) {
+         GUI_clear(color);
+         wait_for_s_i(BUTTON_S5);
+      }
+   }
+   GUI_clear(WHITE);
+}
+
+static void show_color_test(void) {
+   GUI_clear(rgb_to_rgb565(255, 0, 0));
+   wait_for_s_i(BUTTON_S5);
+   GUI_clear(rgb_to_rgb565(0, 255, 0));
+   wait_for_s_i(BUTTON_S5);
+   GUI_clear(rgb_to_rgb565(0, 0, 255));
+   wait_for_s_i(BUTTON_S5);
+   GUI_clear(WHITE);
 }
 
 
@@ -61,22 +85,28 @@ static void show_palette_info(void) {
  * @retval None
  */
 int main(void) {
-   initITSboard();       // Initialisierung des ITS Boards
-   switch_to_168_MHz();  // Zur Unterstützung von USB wird die Taktrate auf ein vielfaches von 42 MHz gesetzt
+   initITSboard();      // Initialisierung des ITS Boards
+   switch_to_168_MHz(); // Zur Unterstützung von USB wird die Taktrate auf ein
+                        // vielfaches von 42 MHz gesetzt
    initTimer();
    GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
-   TP_Init(false);                     // Initialisierung des LCD Boards mit Touch
+   TP_Init(false);               // Initialisierung des LCD Boards mit Touch
    if (!checkVersionFlashFonts()) {
       Error_Handler();
    }
 
-   transport_t transport = ask_transport(); // Anwender waehlt am LCD: S7 (PF7) = USB-CDC, S6 (PF6) = UART-via-USB
+   transport_t transport =
+       ask_transport(); // Anwender waehlt am LCD: S7 (PF7) = USB-CDC, S6 (PF6)
+                        // = UART-via-USB
    init_input(transport); // Verbindung aufgebaut (Handshake H/R/G)
 
    /* Hilfetext einmalig anzeigen und auf S5 warten, sobald die Verbindung
       steht -- erst dann das erste Bild einlesen. */
    show_s5_hint();
-   wait_for_s_i(BUTTON_S5); // erst S5 (PF5) startet die Uebertragung des ersten Bilds
+   wait_for_s_i(
+       BUTTON_S5); // erst S5 (PF5) startet die Uebertragung des ersten Bilds
+
+   show_color_test();
 
    while (1) {
       /* Naechste Datei oeffnen, BITMAP-Header einlesen + pruefen und auf dem
@@ -88,7 +118,7 @@ int main(void) {
             die laufende Operation abgebrochen; Meldung stehen lassen, erst
             S5 (PF5) fordert die naechste Datei an. */
          wait_for_s_i(BUTTON_S5);
-      }else{
+      } else {
          show_palette_info();
          wait_for_s_i(BUTTON_S5);
       }
