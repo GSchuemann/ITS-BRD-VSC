@@ -35,14 +35,18 @@
 #include <stdio.h>
 #include <timer.h>
 #include "rgb565.h"
+#include "pixeldata.h"
+
 
 #define LINE_BUF_SIZE 48
 
 /* Test */
 static void show_palette_info(void) {
    BITMAPINFOHEADER info_hdr;
+   BITMAPINFOHEADER file_hdr;
    char buf[LINE_BUF_SIZE];
    uint16_t color;
+   unsigned long rest = 0;
 
    if (EOK != get_info_hdr(&info_hdr)) {
       return;
@@ -63,6 +67,27 @@ static void show_palette_info(void) {
          wait_for_s_i(BUTTON_S5);
       }
    }
+   
+   if (EOK != get_file_hdr(&file_hdr)) {
+      return;
+   }
+
+   if (EOK != pixeldata_skip_gap(&file_hdr, &info_hdr)) {
+      return;
+   }
+
+   while (!eof()) {
+      nxt_chr();
+      rest++;
+   }
+
+   snprintf(buf, sizeof(buf), "Rest %lu soll %lu", rest,
+            (unsigned long)(file_hdr.bfSize - file_hdr.bfOffBits));
+   GUI_clear(WHITE);
+   lcdGotoXY(1, 1);
+   lcdPrintS(buf);
+   wait_for_s_i(BUTTON_S5);
+
    GUI_clear(WHITE);
 }
 
