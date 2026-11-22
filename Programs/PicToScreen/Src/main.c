@@ -36,72 +36,19 @@
 #include <timer.h>
 #include "rgb565.h"
 #include "pixeldata.h"
+#include "bmp_uncompressed.h"
 
 
-#define LINE_BUF_SIZE 48
-
-/* Test */
-static void show_palette_info(void) {
+static int show_picture(void) {
+   BITMAPFILEHEADER file_hdr;
    BITMAPINFOHEADER info_hdr;
-   BITMAPINFOHEADER file_hdr;
-   char buf[LINE_BUF_SIZE];
-   uint16_t color;
-   unsigned long rest = 0;
 
-   if (EOK != get_info_hdr(&info_hdr)) {
-      return;
-   }
-   GUI_clear(WHITE);
-   lcdGotoXY(1, 1);
-   snprintf(buf, sizeof(buf) / sizeof(buf[0]), "Palette: %d Eintraege",
-            palette_entry_count(&info_hdr));
-   lcdPrintS(buf);
-   wait_for_s_i(BUTTON_S5);
-
-   if (EOK != palette_read(&info_hdr)) {
-      return;
-   }
-   for (uint8_t i = 0; (i < 4) && (i < palette_entry_count(&info_hdr)); i++) {
-      if (EOK == palette_get_color(i, &color)) {
-         GUI_clear(color);
-         wait_for_s_i(BUTTON_S5);
-      }
-   }
-   
-   if (EOK != get_file_hdr(&file_hdr)) {
-      return;
-   }
-
-   if (EOK != pixeldata_skip_gap(&file_hdr, &info_hdr)) {
-      return;
-   }
-
-   while (!eof()) {
-      nxt_chr();
-      rest++;
-   }
-
-   snprintf(buf, sizeof(buf), "Rest %lu soll %lu", rest,
-            (unsigned long)(file_hdr.bfSize - file_hdr.bfOffBits));
-   GUI_clear(WHITE);
-   lcdGotoXY(1, 1);
-   lcdPrintS(buf);
-   wait_for_s_i(BUTTON_S5);
-
-   GUI_clear(WHITE);
+   RETURN_ON_ERROR(get_file_hdr(&file_hdr));
+   RETURN_ON_ERROR(get_info_hdr(&info_hdr));
+   RETURN_ON_ERROR(palette_read(&info_hdr));
+   RETURN_ON_ERROR(pixeldata_skip_gap(&file_hdr, &info_hdr));
+   return bmp_uncompressed_draw(&info_hdr);
 }
-
-static void show_color_test(void) {
-   GUI_clear(rgb_to_rgb565(255, 0, 0));
-   wait_for_s_i(BUTTON_S5);
-   GUI_clear(rgb_to_rgb565(0, 255, 0));
-   wait_for_s_i(BUTTON_S5);
-   GUI_clear(rgb_to_rgb565(0, 0, 255));
-   wait_for_s_i(BUTTON_S5);
-   GUI_clear(WHITE);
-}
-
-
 
 
 /**
@@ -131,9 +78,10 @@ int main(void) {
    wait_for_s_i(
        BUTTON_S5); // erst S5 (PF5) startet die Uebertragung des ersten Bilds
 
-   show_color_test();
-
    while (1) {
+      GUI_clear(WHITE);
+      lcdGotoXY(1, 1);
+      lcdPrintS("Warte auf PC");
       /* Naechste Datei oeffnen, BITMAP-Header einlesen + pruefen und auf dem
          Display ausgeben; danach wartet input_file_header() selbst ohne
          Textausgabe auf S5 (PF5) und loescht dann das Display -- ein
@@ -144,7 +92,7 @@ int main(void) {
             S5 (PF5) fordert die naechste Datei an. */
          wait_for_s_i(BUTTON_S5);
       } else {
-         show_palette_info();
+         show_picture();
          wait_for_s_i(BUTTON_S5);
       }
    }
