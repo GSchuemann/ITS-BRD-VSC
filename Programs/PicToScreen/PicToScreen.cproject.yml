@@ -235,6 +235,7 @@ project:
         - file: Src/pixeldata.c
         - file: Src/picture_out_pixel.c
         - file: Src/bmp_uncompressed.c
+        - file: Src/bmp_rle8.c
 
   components:
     - component: ARM::CMSIS:CORE

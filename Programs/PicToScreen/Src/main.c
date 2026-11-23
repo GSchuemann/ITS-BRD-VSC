@@ -37,6 +37,7 @@
 #include "rgb565.h"
 #include "pixeldata.h"
 #include "bmp_uncompressed.h"
+#include "bmp_rle8.h"
 
 
 static int show_picture(void) {
@@ -47,6 +48,9 @@ static int show_picture(void) {
    RETURN_ON_ERROR(get_info_hdr(&info_hdr));
    RETURN_ON_ERROR(palette_read(&info_hdr));
    RETURN_ON_ERROR(pixeldata_skip_gap(&file_hdr, &info_hdr));
+   if (BI_RLE8 == info_hdr.biCompression) {
+      return bmp_rle8_draw(&info_hdr);
+   }            
    return bmp_uncompressed_draw(&info_hdr);
 }
 
