@@ -32,9 +32,7 @@
 #include "lcd.h"
 #include "palette.h"
 #include "usb_clock_config.h"
-#include <stdio.h>
 #include <timer.h>
-#include "rgb565.h"
 #include "pixeldata.h"
 #include "bmp_uncompressed.h"
 #include "bmp_rle8.h"

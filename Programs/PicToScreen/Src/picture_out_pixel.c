@@ -12,3 +12,9 @@ void picture_out_pixel(int x, int y, uint16_t color) {
    crd.y = (uint16_t)y;
    GUI_drawPoint(crd, color, DOT_PIXEL_1X1, DOT_FILL_AROUND);
 }
+void picture_out_row(int y, uint16_t row[] ) {
+   Coordinate crd;
+   crd.x = 0;
+   crd.y = y;
+   GUI_WriteLine(crd,480,row);
+}
