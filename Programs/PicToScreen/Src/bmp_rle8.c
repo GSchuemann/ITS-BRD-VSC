@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define BITS_PER_PIXEL 8
 #define ESC_END_OF_LINE 0
@@ -29,10 +30,13 @@ static uint16_t pixel_row[WIDTH] = {};
 static uint16_t uncompressed_pixel_row[10000] = {};
 static uint16_t uncompressed_pixel_row_blurred[10000] = {};
 
-static int put_pixel(int x, int index,int compressed) {
+static uint16_t uncompressed_rows[5][WIDTH] = {};
+static uint16_t uncompressed_rows_blurred[5][WIDTH] = {};
+
+static int put_pixel(int x, int index,int compressed, int row) {
    uint16_t color;
 
-   RETURN_ON_ERROR(palette_get_color((uint8_t)index, &color));
+   RETURN_ON_ERROR(palette_get_color((uint8_t)index, &color ));
    if(compressed){
       uncompressed_pixel_row[x] = color;
    } else if(x < WIDTH){
@@ -40,10 +44,9 @@ static int put_pixel(int x, int index,int compressed) {
    }
    return EOK;
 }
-static int put_pixel_color(int x, uint16_t pixel) {
+static int put_pixel_color(int x, uint16_t pixel, int row, int radius) {
    if(x < WIDTH) {
-         pixel_row[x] = pixel;
-
+      uncompressed_rows[row% radius][x] = pixel;
    }
    return  EOK;
 }
@@ -54,7 +57,7 @@ static int draw_run(int x, int row, int count, int index, const BITMAPINFOHEADER
 
    CHECK_OR_RETURN( (x + count <= width), FORMAT_ERR);
    for (int i = 0; i < count; i++) {
-      RETURN_ON_ERROR(put_pixel(x + i,  index,compressed));
+      RETURN_ON_ERROR(put_pixel(x + i,  index,compressed,row));
    }
    return EOK;
 }
@@ -68,7 +71,7 @@ uint16_t get_color(int x, int length){
       return uncompressed_pixel_row[x];
    
 }
-void compress_row( int radius, int length) {
+void compress_row( int radius, int length, int row) {
    uint16_t buffer[radius];
    const int row_start = 0;
    int dif = 0;
@@ -87,11 +90,17 @@ void compress_row( int radius, int length) {
    int i = 0;
    for(int x = 0; x < length; x++) {
          if(x%radius == 0)  {
-            put_pixel_color(i++, uncompressed_pixel_row[x]);
+            put_pixel_color(i++, uncompressed_pixel_row[x],row,radius);
          }
    }
    for(;i <WIDTH;i++){
-      put_pixel_color(i, 0x0000);
+      put_pixel_color(i, 0x0000, radius, radius);
+   }
+}
+void compress_y(int radius, int length, int row) {
+   for(int y = 0; y < WIDTH; y ++) {
+      
+      uncompressed_rows_blurred[row%2][y] = (uncompressed_rows[0][y] + uncompressed_rows[1][y]) / 2;
    }
 }
 static int draw_absolute(int x, int row, int count, const BITMAPINFOHEADER *info_hdr_p,int compressed) {
@@ -102,7 +111,7 @@ static int draw_absolute(int x, int row, int count, const BITMAPINFOHEADER *info
    CHECK_OR_RETURN( (x + count <= width), FORMAT_ERR);
    for (int i = 0; i < count; i++) {
       RETURN_ON_ERROR(read_byte(&index));
-      RETURN_ON_ERROR(put_pixel(x + i,  index,compressed));
+      RETURN_ON_ERROR(put_pixel(x + i,  index,compressed, row));
    }
    if (0 != (count % ODD_RUN_PADDING)) {
       RETURN_ON_ERROR(read_byte(&index));
@@ -120,6 +129,7 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
 
    int x = 0;
    int row = 320;
+   int row_print_pos = 320;
    int count;
    int value;
    int delta_x;
@@ -127,9 +137,7 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
    int diff_x = (int)round(((double)width/ (double)WIDTH) + 0.46);
    int diff_y = (int)round(((double)height / (double)HEIGHT) +0.46);
    int compression_faktor = diff_x > diff_y ? diff_x : diff_y;
-   if(compression_faktor % 2 == 0) {
-      compression_faktor += 1;
-   }
+
 
    for (;;) {
       RETURN_ON_ERROR(read_byte(&count));
@@ -143,9 +151,16 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
             CHECK_OR_RETURN(x == width, FORMAT_ERR);
             x = 0;
             if(compression_faktor != 1){
-               compress_row(compression_faktor, width);
+               compress_row(compression_faktor, width, row);
+               compress_y(compression_faktor, width, row);
+               if(row%compression_faktor == 0){ 
+                  memcpy(pixel_row, uncompressed_rows_blurred[row%2], sizeof(uint16_t) * WIDTH);
+                  picture_out_row(row_print_pos, pixel_row);
+                  row_print_pos --;
+               }
+            } else {
+               picture_out_row(row, pixel_row);
             }
-            picture_out_row(row, pixel_row);
             row--;
             break;
          case  ESC_END_OF_BITMAP:
@@ -155,9 +170,15 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
             RETURN_ON_ERROR(read_byte(&delta_y));
             x += delta_x;
             if(compression_faktor != 1){
-               compress_row(compression_faktor, width);
+               compress_row(compression_faktor, width, row);
+               compress_y(compression_faktor, width, row);
+               if(row% compression_faktor){
+                  picture_out_row(row_print_pos, pixel_row);
+                  row_print_pos--;
+               }
+            } else {
+               picture_out_row(row, pixel_row);
             }
-            picture_out_row(row, pixel_row);
             row -= delta_y;
             break;
          default:
