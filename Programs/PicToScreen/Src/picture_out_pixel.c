@@ -1,7 +1,7 @@
 #include "picture_out.h"
 #include "LCD_GUI.h"
 #include "LCD_general.h"
-
+#define WIDTH 480 
 void picture_out_pixel(int x, int y, uint16_t color) {
    Coordinate crd;
 
@@ -16,5 +16,5 @@ void picture_out_row(int y, uint16_t row[] ) {
    Coordinate crd;
    crd.x = 0;
    crd.y = y;
-   GUI_WriteLine(crd,480,row);
+   GUI_WriteLine(crd,WIDTH,row);
 }
