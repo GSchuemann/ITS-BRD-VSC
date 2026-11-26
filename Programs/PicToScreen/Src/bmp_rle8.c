@@ -4,6 +4,7 @@
 #include "palette.h"
 #include "picture_out.h"
 #include "stm32f4xx.h"
+#include <math.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +27,7 @@ static int read_byte(int *value_p) {
 
 static uint16_t pixel_row[WIDTH] = {};
 static uint16_t uncompressed_pixel_row[10000] = {};
-static uint16_t uncompressed_pixel_row2[10000] = {};
+static uint16_t uncompressed_pixel_row_blurred[10000] = {};
 
 static int put_pixel(int x, int index,int compressed) {
    uint16_t color;
@@ -51,7 +52,7 @@ static int draw_run(int x, int row, int count, int index, const BITMAPINFOHEADER
    int width = (int)info_hdr_p->biWidth;
    int height = (int)info_hdr_p->biHeight;
 
-   CHECK_OR_RETURN((row < height) && (x + count <= width), FORMAT_ERR);
+   CHECK_OR_RETURN( (x + count <= width), FORMAT_ERR);
    for (int i = 0; i < count; i++) {
       RETURN_ON_ERROR(put_pixel(x + i,  index,compressed));
    }
@@ -77,7 +78,7 @@ void compress_row( int radius, int length) {
       dif += get_color(x+radius, length);
       if(x >= row_start) {
          dif += buffer[x%radius];
-         uncompressed_pixel_row2[x] = sum/(radius * radius);
+         uncompressed_pixel_row_blurred[x] = sum/(radius * radius);
          uint16_t p = get_color( x, length);
          buffer[x%radius] = p;
          dif -= 2*p;
@@ -98,7 +99,7 @@ static int draw_absolute(int x, int row, int count, const BITMAPINFOHEADER *info
    int height = (int)info_hdr_p->biHeight;
    int index;
 
-   CHECK_OR_RETURN((row < height) && (x + count <= width), FORMAT_ERR);
+   CHECK_OR_RETURN( (x + count <= width), FORMAT_ERR);
    for (int i = 0; i < count; i++) {
       RETURN_ON_ERROR(read_byte(&index));
       RETURN_ON_ERROR(put_pixel(x + i,  index,compressed));
@@ -118,13 +119,13 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
    int height = (int)info_hdr_p->biHeight;
 
    int x = 0;
-   int row = 0;
+   int row = 320;
    int count;
    int value;
    int delta_x;
    int delta_y;
-   int diff_x = (int)(((double)width/ WIDTH) + 0.45);
-   int diff_y = (int)(((double)height / HEIGHT) +0.45);
+   int diff_x = (int)round(((double)width/ (double)WIDTH) + 0.46);
+   int diff_y = (int)round(((double)height / (double)HEIGHT) +0.46);
    int compression_faktor = diff_x > diff_y ? diff_x : diff_y;
    if(compression_faktor % 2 == 0) {
       compression_faktor += 1;
@@ -145,7 +146,7 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
                compress_row(compression_faktor, width);
             }
             picture_out_row(row, pixel_row);
-            row++;
+            row--;
             break;
          case  ESC_END_OF_BITMAP:
             return EOK;
@@ -157,7 +158,7 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
                compress_row(compression_faktor, width);
             }
             picture_out_row(row, pixel_row);
-            row += delta_y;
+            row -= delta_y;
             break;
          default:
             RETURN_ON_ERROR(draw_absolute(x, row, value, info_hdr_p,compression_faktor != 1 ? 1 : 0));
