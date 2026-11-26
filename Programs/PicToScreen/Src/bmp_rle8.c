@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define BITS_PER_PIXEL 8
 #define ESC_END_OF_LINE 0
@@ -25,8 +26,11 @@ static int read_byte(int *value_p) {
 }
 
 static uint16_t pixel_row[WIDTH] = {};
+static uint16_t sixteen_by_row_img[16][WIDTH] = {};
+static uint16_t sixteen_by_row_img_blurred[16][WIDTH] = {};
+
 static uint16_t uncompressed_pixel_row[10000] = {};
-static uint16_t uncompressed_pixel_row2[10000] = {};
+static uint16_t uncompressed_pixel_row_blurred[10000] = {};
 
 static int put_pixel(int x, int index,int compressed) {
    uint16_t color;
@@ -39,10 +43,9 @@ static int put_pixel(int x, int index,int compressed) {
    }
    return EOK;
 }
-static int put_pixel_color(int x, uint16_t pixel) {
+static int put_pixel_color(int x, uint16_t pixel, int row) {
    if(x < WIDTH) {
-         pixel_row[x] = pixel;
-
+      sixteen_by_row_img[row &15][x] = pixel;
    }
    return  EOK;
 }
@@ -50,12 +53,15 @@ static int put_pixel_color(int x, uint16_t pixel) {
 static int draw_run(int x, int row, int count, int index, const BITMAPINFOHEADER *info_hdr_p, int compressed) {
    int width = (int)info_hdr_p->biWidth;
    int height = (int)info_hdr_p->biHeight;
-
    CHECK_OR_RETURN((row < height) && (x + count <= width), FORMAT_ERR);
+
    for (int i = 0; i < count; i++) {
       RETURN_ON_ERROR(put_pixel(x + i,  index,compressed));
-   }
+   
    return EOK;
+   }
+   // CHECK_OR_RETURN( FORMAT_ERR);
+
 }
 uint16_t get_color(int x, int length){
    if(x < length) {
@@ -67,7 +73,7 @@ uint16_t get_color(int x, int length){
       return uncompressed_pixel_row[x];
    
 }
-void compress_row( int radius, int length) {
+void compress_row( int radius, int length, int row) {
    uint16_t buffer[radius];
    const int row_start = 0;
    int dif = 0;
@@ -77,7 +83,7 @@ void compress_row( int radius, int length) {
       dif += get_color(x+radius, length);
       if(x >= row_start) {
          dif += buffer[x%radius];
-         uncompressed_pixel_row2[x] = sum/(radius * radius);
+         uncompressed_pixel_row_blurred[x] = sum/(radius * radius);
          uint16_t p = get_color( x, length);
          buffer[x%radius] = p;
          dif -= 2*p;
@@ -86,12 +92,17 @@ void compress_row( int radius, int length) {
    int i = 0;
    for(int x = 0; x < length; x++) {
          if(x%radius == 0)  {
-            put_pixel_color(i++, uncompressed_pixel_row[x]);
+            put_pixel_color(i++, uncompressed_pixel_row[x], row);
          }
    }
    for(;i <WIDTH;i++){
-      put_pixel_color(i, 0x0000);
+      put_pixel_color(i, 0x0000, row);
    }
+}
+void compress_y(int radius, int length,int row) {
+   memcpy(pixel_row, sixteen_by_row_img[row&15], sizeof(uint16_t) * WIDTH);
+   picture_out_row(row, pixel_row);
+
 }
 static int draw_absolute(int x, int row, int count, const BITMAPINFOHEADER *info_hdr_p,int compressed) {
    int width = (int)info_hdr_p->biWidth;
@@ -123,8 +134,8 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
    int value;
    int delta_x;
    int delta_y;
-   int diff_x = width / WIDTH;
-   int diff_y = height / HEIGHT;
+   int diff_x = (int)(((double)width/ WIDTH) + 0.45);
+   int diff_y =  (int)(((double)height / HEIGHT) +0.45);
    int compression_faktor = diff_x > diff_y ? diff_x : diff_y;
    if(compression_faktor % 2 == 0) {
       compression_faktor += 1;
@@ -142,9 +153,12 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
             CHECK_OR_RETURN(x == width, FORMAT_ERR);
             x = 0;
             if(compression_faktor != 1){
-               compress_row(compression_faktor, width);
+               compress_row(compression_faktor, width, row);
+                  compress_y(compression_faktor,width, row);
+               
+            }else {
+               picture_out_row(row, pixel_row);
             }
-            picture_out_row(row, pixel_row);
             row++;
             break;
          case  ESC_END_OF_BITMAP:
@@ -154,9 +168,12 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
             RETURN_ON_ERROR(read_byte(&delta_y));
             x += delta_x;
             if(compression_faktor != 1){
-               compress_row(compression_faktor, width);
+               compress_row(compression_faktor, width, row);
+               compress_y(compression_faktor,width ,row);
+               
+            } else {
+               picture_out_row(row, pixel_row);
             }
-            picture_out_row(row, pixel_row);
             row += delta_y;
             break;
          default:
