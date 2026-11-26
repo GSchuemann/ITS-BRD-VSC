@@ -123,8 +123,8 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
    int value;
    int delta_x;
    int delta_y;
-   int diff_x = width / WIDTH;
-   int diff_y = height / HEIGHT;
+   int diff_x = (int)(((double)width/ WIDTH) + 0.45);
+   int diff_y = (int)(((double)height / HEIGHT) +0.45);
    int compression_faktor = diff_x > diff_y ? diff_x : diff_y;
    if(compression_faktor % 2 == 0) {
       compression_faktor += 1;
