@@ -99,6 +99,7 @@ void compress_row( int radius, int length, int row) {
 }
 void compress_y(int radius, int length, int row) {
    for(int y = 0; y < WIDTH; y ++) {
+
       int sum = 0;
       for(int i = 0; i < radius; i++) {
          sum += uncompressed_rows[radius%i][y];
@@ -132,7 +133,7 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
    int height = (int)info_hdr_p->biHeight;
 
    int x = 0;
-   int row = 320;
+   int row = 0;
    int row_print_pos = 320;
    int count;
    int value;
@@ -157,11 +158,10 @@ int bmp_rle8_draw(const BITMAPINFOHEADER *info_hdr_p) {
             if(compression_faktor != 1){
                compress_row(compression_faktor, width, row);
                compress_y(compression_faktor, width, row);
-
                if(row%compression_faktor == 0){ 
                   memcpy(pixel_row, uncompressed_rows_blurred[row%compression_faktor], sizeof(uint16_t) * WIDTH);
                   picture_out_row(row_print_pos, pixel_row);
-                  row_print_pos --;
+                  row_print_pos--;
                }
             } else {
                picture_out_row(row, pixel_row);
